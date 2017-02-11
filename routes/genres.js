@@ -4,8 +4,14 @@
 var express = require('express')
 var router = express.Router()
 
+var Genres = require('../controllers/genres')
+
 router.get('/genres', function(req, res, next) {
-    res.send('renders GENRES route')
+    Genres.getGenres(function(err, genres) {
+        if (err) throw err
+        res.json(genres)
+    // optional limit
+    }, undefined)
 })
 
 module.exports = router

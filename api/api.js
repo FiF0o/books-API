@@ -4,21 +4,36 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var logger = require('morgan')
-// var mongoose = require('mongoose')
+var mongoose = require('mongoose')
 
+/** Routes **/
 var genres = require('../routes/genres')
 
+
+/** Get an instance of express app **/
 var PORT = process.env.PORT || 3001
 var app = express()
+
+/** connects to MongoDB locally & get an instance of the books-api DB **/
+mongoose.connect('mongodb://localhost/books-api')
+var db = mongoose.connection
+console.log(db)
+
 
 app.use(logger('dev'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+var interceptorMW = function(res, req, err, next) {
+    console.log('MW fired!')
+    next()
+}
+
 /**
  * routes
  */
-app.use('/api', genres)
+app.use('/api', interceptorMW, genres)
+
 
 /**
  * Global API Middlewares
