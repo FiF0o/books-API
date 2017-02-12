@@ -47,7 +47,6 @@ app.use('/arg', parseReqUrl, function(url_query, req, res, next){
 // })
 
 
-
 /**
  * routes
  * nested routes: http://stackoverflow.com/questions/25260818/rest-with-express-js-nested-router
