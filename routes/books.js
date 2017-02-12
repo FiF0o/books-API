@@ -14,4 +14,12 @@ router.get('/books', function(req, res, next) {
     }, undefined)
 })
 
+router.get('/books/:_id', function(req, res, next) {
+    var bookId = req.params._id
+    Books.getBookById(bookId, function(err, book) {
+        if (err) throw err
+        res.json(book)
+    }, undefined)
+})
+
 module.exports = router

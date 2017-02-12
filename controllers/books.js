@@ -6,3 +6,7 @@ var Books = require('../models/Books')
 module.exports.getBooks = function(cb, limit) {
     Books.find(cb).limit(limit)
 }
+
+module.exports.getBookById = function(id, cb) {
+    Books.findById(id, cb)
+}
