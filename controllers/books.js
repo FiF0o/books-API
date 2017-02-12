@@ -27,9 +27,8 @@ module.exports.updateBook = function(id, bookToUpdate, options, cb) {
         description: bookToUpdate.description,
         link_img: bookToUpdate.link_img,
         link_buy: bookToUpdate.link_buy
-
-
     }
+
     Books.findOneAndUpdate(dbQuery, update, options, cb)
 }
 
