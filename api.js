@@ -8,6 +8,7 @@ var mongoose = require('mongoose')
 
 /** Routes **/
 var genres = require('./routes/genres')
+var books = require('./routes/books')
 
 /** middleware functions **/
 var service = require('./utils/service')
@@ -32,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
  */
 // service MW is injected in the route
 app.use('/api', service, genres)
-
+app.use('/api', books)
 
 /**
  * Global API Middlewares
