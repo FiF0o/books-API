@@ -10,3 +10,8 @@ module.exports.getBooks = function(cb, limit) {
 module.exports.getBookById = function(id, cb) {
     Books.findById(id, cb)
 }
+
+module.exports.addBook = function(newBook, cb) {
+    // POST req must have Books model as req.headers when posting new book
+    Books.create(newBook, cb)
+}

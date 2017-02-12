@@ -22,4 +22,13 @@ router.get('/books/:_id', function(req, res, next) {
     }, undefined)
 })
 
+router.post('/books', function(req, res, next) {
+    // grabs the req from the POST
+    var bookReq = req.body
+    Books.addBook(bookReq, function(err, book) {
+        if(err) throw err
+        res.json(book)
+    })
+})
+
 module.exports = router
