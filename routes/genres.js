@@ -14,4 +14,20 @@ router.get('/genres', function(req, res, next) {
     }, undefined)
 })
 
+router.post('/genres', function(req, res, next) {
+    /**
+     *
+     * body parser reads the request
+     * must return a "name" key in the req.body to match genre model
+     * {"name":"new genre"}
+     *
+     * **/
+    var genre = req.body
+    console.log(genre)
+    Genres.addGenre(genre, function(err, addedGenre) {
+        if (err) throw err
+        res.json(addedGenre)
+    })
+})
+
 module.exports = router

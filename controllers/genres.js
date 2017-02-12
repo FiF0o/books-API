@@ -8,3 +8,7 @@ module.exports.getGenres = function(cb, limit) {
     //limit is optional, can come from the parameter
     Genres.find(cb).limit(limit)
 }
+
+module.exports.addGenre = function(newGenre, cb) {
+    Genres.create(newGenre, cb)
+}
