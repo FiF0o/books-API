@@ -30,8 +30,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 /**
  * routes
+ * nested routes: http://stackoverflow.com/questions/25260818/rest-with-express-js-nested-router
  */
-// service MW is injected in the route
+// service MW is injected in the route matching /api
+//TODO Nest routes to have the following structure /api as the root
+// app.use('/api', require('./routes/api'))
 app.use('/api', service, genres)
 app.use('/api', books)
 

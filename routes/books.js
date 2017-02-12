@@ -1,6 +1,7 @@
 /**
  * Created by jonlazarini on 12/02/17.
  */
+//TODO once sub routes index.js is define, change routes to not show the root e.g. /books
 var express = require('express')
 var router = express.Router()
 
