@@ -5,6 +5,8 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var logger = require('morgan')
 var mongoose = require('mongoose')
+var url = require('url')
+
 
 /** Routes **/
 var genres = require('./routes/genres')
@@ -26,6 +28,24 @@ var db = mongoose.connection
 app.use(logger('dev'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+/*var parseReqUrl = function(req, res, next) {
+    var url_query = url.parse(req.url, true).query;
+    console.log('parseReqUrl MW', url_query)
+    next(url_query)
+}
+app.use('/arg', parseReqUrl, function(url_query, req, res, next){
+    console.log('query in /arg', url_query)
+    res.send('Hit the last MW')
+})*/
+
+// // parses app req params for the entire app
+// app.use(function(req, res, next) {
+//     var url_query = url.parse(req.url, true).query;
+//     console.log('parseReqUrl MW', url_query)
+//     next(url_query)
+// })
+
 
 
 /**

@@ -14,7 +14,8 @@
     "jsdoc": "3.4.3",
     "mongoose": "4.8.2",
     "morgan": "1.7.0",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "~2.3.2",
+    "url": "0.11.0"
   },
   "devDependencies": {
     "nodemon": "1.11.0"

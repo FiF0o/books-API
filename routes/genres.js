@@ -1,8 +1,9 @@
 /**
  * Created by jonlazarini on 11/02/17.
  */
-var express = require('express')
-var router = express.Router()
+var router = require('express').Router()
+// parsing req params to be passed as body
+var url = require('url')
 
 var Genres = require('../controllers/genres')
 
@@ -29,5 +30,19 @@ router.post('/genres', function(req, res, next) {
         res.json(addedGenre)
     })
 })
+
+//update item
+router.put('/genres/:_id', function(req, res, next) {
+    var queryParams = url.parse(req.url, true).query;
+    var id = req.params._id
+    var options = {new: true}
+
+    console.log(queryParams)
+    Genres.updateGenre(id, queryParams, {}, function(err, updatedGenre) {
+        if(err) throw err
+        res.json(updatedGenre)
+    })
+})
+
 
 module.exports = router
