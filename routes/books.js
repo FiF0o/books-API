@@ -48,5 +48,12 @@ router.put('/books/:_id', function(req, res, next) {
     })
 })
 
+router.delete('/books/:_id', function(req, res, next) {
+    var _id = req.params._id
+    Books.deleteBook(_id, function(err, book) {
+        res.json(book)
+    })
+})
+
 
 module.exports = router

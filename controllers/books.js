@@ -32,3 +32,8 @@ module.exports.updateBook = function(id, bookToUpdate, options, cb) {
     }
     Books.findOneAndUpdate(dbQuery, update, options, cb)
 }
+
+module.exports.deleteBook = function(id, cb) {
+    var query = {_id: id}
+    Books.remove(query, cb)
+}
