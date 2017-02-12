@@ -22,3 +22,8 @@ module.exports.updateGenre = function(id, genreToUpdate, options, cb) {
     }
     Genres.findOneAndUpdate(dbQuery, update, options, cb)
 }
+
+module.exports.deleteGenre = function(id, cb) {
+    var query = {_id: id}
+    Genres.remove(query, cb)
+}

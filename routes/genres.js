@@ -52,5 +52,12 @@ router.put('/genres/:_id', function(req, res, next) {
     })
 })
 
+router.delete('/genres/:_id', function(req, res, next) {
+    var _id = req.params._id
+    Genres.deleteGenre(_id, function(err, genre) {
+        res.json(genre)
+    })
+})
+
 
 module.exports = router
