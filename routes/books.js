@@ -4,7 +4,6 @@
 //TODO once sub routes index.js is define, change routes to not show the root e.g. /books
 var express = require('express')
 var router = express.Router()
-var url = require('url')
 
 var Books = require('../controllers/books')
 
@@ -36,11 +35,9 @@ router.post('/books', function(req, res, next) {
 //update item
 router.put('/books/:_id', function(req, res, next) {
     // retrieves query string params and parse them for DB update
-    var queryStringParsed = url.parse(req.url, true).query;
+    var queryStringParsed = req.query
     var id = req.params._id
     var options = {new: true}
-
-    console.log(queryStringParsed)
 
     Books.updateBook(id, queryStringParsed, {}, function(err, updatedBook) {
         if(err) throw err

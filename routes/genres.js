@@ -3,7 +3,6 @@
  */
 var router = require('express').Router()
 // parsing req params to be passed as body
-var url = require('url')
 
 var Genres = require('../controllers/genres')
 
@@ -30,7 +29,6 @@ router.post('/genres', function(req, res, next) {
      *
      * **/
     var genre = req.body
-    console.log(genre)
     Genres.addGenre(genre, function(err, addedGenre) {
         if (err) throw err
         res.json(addedGenre)
@@ -40,7 +38,7 @@ router.post('/genres', function(req, res, next) {
 //update item
 router.put('/genres/:_id', function(req, res, next) {
     // retrieves query string params and parse them for DB update
-    var queryStringParsed = url.parse(req.url, true).query;
+    var queryStringParsed = req.query;
     var id = req.params._id
     var options = {new: true}
 
