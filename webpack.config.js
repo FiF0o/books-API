@@ -20,7 +20,7 @@ module.exports = {
         'react-hot-loader/patch',
         './src/index.jsx', // your app's entry point
         //TODO Add path/entry-point for scss
-        // './styles/index.scss'
+        './src/scss/index.scss'
     ],
     devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
     output: {

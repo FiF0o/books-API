@@ -18,7 +18,7 @@ module.exports = {
     entry: [
         './src/index.jsx',
         //TODO Add path/entry-point for scss
-        // './styles/index.scss'
+        './src/scss/index.scss'
     ],
     output: {
         publicPath: '/',
