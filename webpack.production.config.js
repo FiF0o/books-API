@@ -23,7 +23,8 @@ module.exports = {
     output: {
         publicPath: '/',
         path: path.join(__dirname, 'public'),
-        filename: '[chunkhash].js'
+        filename: 'index.js'
+        // filename: '[chunkhash].js'
     },
     resolve: {
         extensions: ['', '.js', '.jsx']
@@ -51,12 +52,12 @@ module.exports = {
         new ExtractTextPlugin("style.css", {
             allChunks: true
         }),
-        new HtmlWebpackPlugin({
-            template: './src/template.html',
-            files: {
-                css: ['style.css'],
-                js: [ "bundle.js"],
-            }
-        })
+        // new HtmlWebpackPlugin({
+        //     template: './src/template.html',
+        //     files: {
+        //         css: ['style.css'],
+        //         js: [ "bundle.js"],
+        //     }
+        // })
     ]
 };
