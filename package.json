@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "api": "nodemon ./api/index.js --exec babel-node",
     "start:server": "nodemon ./bin/server.js --exec babel-node",
     "build:server": "babel ./bin -d public",
     "serve": "node public/server.js",
