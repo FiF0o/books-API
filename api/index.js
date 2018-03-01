@@ -1,13 +1,15 @@
-import http, {createServer} from 'http';
+import http from 'http';
 
 import app from './server'
+
+const PORT = process.env.PORT || 3000
 
 
 /** Wrap express app into http to use the http interface (events, or ws, etc..) */
 const server = http.createServer(app)
 
-server.listen(3000, () => {
-  console.log('API on port 3000')
+server.listen(PORT, () => {
+  console.log(`API on port ${PORT}`)
 })
 
 let currentApp = app
