@@ -4,6 +4,9 @@
   "private": true,
   "scripts": {
     "api": "nodemon ./api/index.js --exec babel-node",
+    "db:service": "mongod --rest --httpinterface ",
+    "db:interface": "open http://localhost:28017/",
+    "db": "npm run db:service && db:interface",
     "start:server": "nodemon ./bin/server.js --exec babel-node",
     "build:server": "babel ./bin -d public",
     "serve": "node public/server.js",
@@ -17,6 +20,7 @@
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
+    "dotenv": "5.0.1",
     "express": "4.14.1",
     "jade": "~1.11.0",
     "jsdoc": "3.4.3",

@@ -1,6 +1,6 @@
 import express from 'express'
 import {apiRouter} from './resources/router'
-
+import {connect} from '../db'
 
 const app = express()
 
@@ -9,6 +9,7 @@ const app = express()
 
 
 /** DB */
+connect()
 
 
 /** Mount routers to the app */
