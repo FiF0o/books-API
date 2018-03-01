@@ -27,3 +27,5 @@ if(module.hot) {
     currentApp = app
   })
 }
+
+/** Server errors handling */
