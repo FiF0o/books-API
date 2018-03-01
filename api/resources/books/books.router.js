@@ -1,11 +1,10 @@
 import express from 'express'
-// Import controllers here
+import booksController from './books.controller'
 
 export const booksRouter = express.Router()
 
 
-// booksRouter.param('id', booksController.findByParam)
-
+booksRouter.param('id', booksController.findByParam)
 
 /** Routes definitions */
 booksRouter.route('/')
@@ -22,3 +21,7 @@ booksRouter.route('/')
     (req, res, next) =>
       res.json({books: "ok"})
   )
+
+// curl http://localhost:3000/api/books/1
+booksRouter.route('/:id')
+  .get(booksController.getOne)
