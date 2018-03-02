@@ -1,32 +1,38 @@
-const mockTestData = {
-  message: 'Hai!'
-}
+import {merge} from 'ramda'
 
-/** Generic controllers */
+/**
+ * Generic controllers
+ * Meta controllers for Mongoose to query DB
+*/
 export const controllers = {
 
   createOne(model, body) {
-    return Promise.resolve(mockTestData)
+    return model.create(body)
   },
 
-  updateOne: (docToUpdate, update) => {
-    return Promise.resolve(mockTestData)
+  updateOne: (model, docToUpdate, update) => {
+    const newVal = merge({_id: docToUpdate}, update)
+    //TODO To Finish - https://docs.mongodb.com/v3.2/reference/method/db.collection.updateOne/
+    // return model.db.collections.books.save(newVal)
+    return
   },
 
-  deleteOne: (docToDelete) => {
-    return Promise.resolve(mockTestData)
+  deleteOne: (model, docToDelete) => {
+    return model.remove({_id: docToDelete}, {justOne: true})
   },
 
   getOne: (docToGet) => {
-    return Promise.resolve(mockTestData)
+    // placeholder for data manipulation - returns undefined for now
+    return Promise.resolve(docToGet)
   },
 
   getAll(model) {
-    return Promise.resolve(mockTestData)
+    return model.find({}).exec()
   },
 
   findByParam(model, id) {
-    return Promise.resolve(mockTestData)
+    // mongo returns a Promise
+    return model.findById(id).exec()
   }
 
 }
@@ -45,22 +51,22 @@ export const createOne = (model) => (req, res, next) => {
 }
 
 export const updateOne = (model) => async (req, res, next) => {
-  const docToUpdate = req.docFromId
+  const docToUpdate = req.params.id
   const update = req.body
 
-  return controllers.updateOne(docToUpdate, update)
+  return controllers.updateOne(model, docToUpdate, update)
     .then(doc => res.status(201).json(doc))
     .catch(error => next(error))
 }
 
 export const deleteOne = (model) => (req, res, next) => {
-  return controllers.deleteOne(req.docFromId)
+  return controllers.deleteOne(model, req.params.id)
     .then(doc => res.status(201).json(doc))
     .catch(error => next(error))
 }
 
 export const getOne = (model) => (req, res, next) => {
-  return controllers.getOne(req.docToUpdate)
+  return controllers.getOne(undefined)
     .then(doc => res.status(200).json(doc))
     .catch(error => next(error))
 }
@@ -72,16 +78,15 @@ export const getAll = (model) => (req, res, next) => {
 }
 
 export const findByParam = (model) => (req, res, next, id) => {
-  console.log(req)
   return controllers.findByParam(model, id)
     .then(doc => {
       if (!doc) {
         next(new Error('Not Found Error'))
       } else {
-        req.docFromId
-        next()
-      }
-    })
+          res.status(200).json(doc)
+          next()
+        }
+      })
     .catch(error => {
       next(error)
     })
