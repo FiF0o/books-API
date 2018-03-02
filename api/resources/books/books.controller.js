@@ -1,5 +1,4 @@
 import { generateControllers } from '../../modules/dBqueries'
-// Import model here
+import {Books} from './books.model'
 
-let model = null
-export default generateControllers(model)
+export default generateControllers(Books)

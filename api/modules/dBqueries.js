@@ -9,15 +9,15 @@ export const controllers = {
     return Promise.resolve(mockTestData)
   },
 
-  updateOne(docToUpdate, update) {
+  updateOne: (docToUpdate, update) => {
     return Promise.resolve(mockTestData)
   },
 
-  deleteOne(docToDelete) {
+  deleteOne: (docToDelete) => {
     return Promise.resolve(mockTestData)
   },
 
-  getOne(docToGet) {
+  getOne: (docToGet) => {
     return Promise.resolve(mockTestData)
   },
 
