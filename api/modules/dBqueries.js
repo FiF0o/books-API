@@ -11,10 +11,8 @@ export const controllers = {
   },
 
   updateOne: (model, docToUpdate, update) => {
-    const newVal = merge({_id: docToUpdate}, update)
-    //TODO To Finish - https://docs.mongodb.com/v3.2/reference/method/db.collection.updateOne/
-    // return model.db.collections.books.save(newVal)
-    return
+    const updatedDoc = merge(docToUpdate._doc, update)
+    return model.db.collections.books.save(updatedDoc)
   },
 
   deleteOne: (model, docToDelete) => {
@@ -51,8 +49,13 @@ export const createOne = (model) => (req, res, next) => {
 }
 
 export const updateOne = (model) => async (req, res, next) => {
-  const docToUpdate = req.params.id
   const update = req.body
+  const docId = req.params.id
+  try {
+    const docToUpdate = await controllers.findByParam(model, docId)
+  } catch(e) {
+    console.error(`Failed to fetch document:\n ${e}`)
+  }
 
   return controllers.updateOne(model, docToUpdate, update)
     .then(doc => res.status(201).json(doc))
