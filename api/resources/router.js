@@ -1,6 +1,6 @@
 import express from 'express'
-import {booksRouter} from './resources/books/books.router'
-import {genresRouter} from './resources/genres/genres.router'
+import booksRouter from './books'
+import genresRouter from './genres'
 
 
 export const apiRouter = express.Router()

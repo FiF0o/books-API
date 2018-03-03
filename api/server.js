@@ -1,5 +1,5 @@
 import express from 'express'
-import {apiRouter} from './router'
+import apiRouter from './resources'
 import {connect} from '../db'
 import {setupMiddleware} from './middlewares'
 import {apiErrorMiddleware} from './modules/apiErrorHandling'
