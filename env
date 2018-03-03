@@ -1,1 +1,9 @@
+## is the db by default in ./config/index
 DEV_DB=
+PROD_DB=
+TESTING_DB=
+
+PORT=
+
+## development by default
+# NODE_ENV=

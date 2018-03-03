@@ -1,8 +1,9 @@
 import http from 'http';
 
 import app from './server'
+import config from '../config'
 
-const PORT = process.env.PORT || 3000
+const PORT = config.port
 
 
 /** Wrap express app into http to use the http interface (events, or ws, etc..) */
