@@ -16,7 +16,11 @@ export const controllers = {
   },
 
   deleteOne: (model, docToDelete) => {
-    return model.remove({_id: docToDelete}, {justOne: true})
+    return model.find({_id: docToDelete}).remove(err => {
+      if(err) console.error(err)
+      else console.log(`doc ${docToDelete} has been deleted!`)
+      }
+    )
   },
 
   getOne: (docToGet) => {
@@ -64,7 +68,6 @@ export const updateOne = (model) => async (req, res, next) => {
 
 export const deleteOne = (model) => (req, res, next) => {
   return controllers.deleteOne(model, req.params.id)
-    .then(doc => res.status(201).json(doc))
     .catch(error => next(error))
 }
 
