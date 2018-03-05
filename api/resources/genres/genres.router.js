@@ -1,15 +1,17 @@
 import express from 'express'
-// Import controllers here
+import genresController from './genres.controller'
 
 export const genresRouter = express.Router()
 
 
-// genresRouter.param('id', genresController.findByParam)
-
+genresRouter.param('id', genresController.findByParam)
 
 /** Routes definitions */
 genresRouter.route('/')
-  // inject controllers
-  .get((req, res, next) => {
-    res.json({genres: "ok"})
-  })
+  .get(genresController.getAll)
+  .post(genresController.createOne)
+
+genresRouter.route('/:id')
+  .get(genresController.getOne)
+  .put(genresController.updateOne)
+  .delete(genresController.deleteOne)
