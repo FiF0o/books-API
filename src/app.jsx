@@ -14,7 +14,6 @@ import store from './store'
 
 export default class App extends React.Component {
     render() {
-    	console.log('DID IT load?')
         return (
             <div>
             <h1>It Works!</h1>

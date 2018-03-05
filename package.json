@@ -6,15 +6,7 @@
     "api": "nodemon ./api/index.js --exec babel-node",
     "db:service": "mongod --rest --httpinterface ",
     "db:interface": "open http://localhost:28017/",
-    "db": "npm run db:service && db:interface",
-    "start:server": "nodemon ./bin/server.js --exec babel-node",
-    "build:server": "babel ./bin -d public",
-    "serve": "node public/server.js",
-    "test": "mocha --compilers js:babel-register",
-    "build": "webpack --config webpack.production.config.js --progress --profile --colors",
-    "start": "webpack-dev-server --progress --profile --colors",
-    "lint": "eslint --ext js --ext jsx src || exit 0",
-    "dev": " webpack-dashboard -- webpack-dev-server --progress --profile --colors"
+    "db": "npm run db:service && db:interface"
   },
   "dependencies": {
     "body-parser": "1.16.0",
