@@ -10,43 +10,43 @@ import { Provider } from 'react-redux'
 import { renderToString } from 'react-dom/server'
 
 import AppContainer from '../src/containers/AppContainer'
-import { fetchCounter } from '../api/counter'
+// import { fetchCounter } from '../api/counter'
 import reducers from '../src/reducers';
 
 
 const app = Express()
-const port = 3000
+const port = 3010
 
 // This is fired every time the server side receives a request
 app.use(handleRender)
 
 
 function handleRender(req, res) {
-	// Query our mock API asynchronously
-	fetchCounter(apiResult => {
-		// Read the counter from the request, if provided
-		const params = qs.parse(req.query)
-		const counter = parseInt(params.counter, 10) || apiResult || 0
+	// // Query our mock API asynchronously
+	// fetchCounter(apiResult => {
+	// 	// Read the counter from the request, if provided
+	// 	const params = qs.parse(req.query)
+	// 	const counter = parseInt(params.counter, 10) || apiResult || 0
 
-		// Compile an initial state
-		let preloadedState = { counter }
+	// 	// Compile an initial state
+		let preloadedState = { undefined }
 
-		// Create a new Redux store instance
+	// 	// Create a new Redux store instance
 		const store = createStore(reducers, preloadedState)
 
-		// Render the component to a string
+	// 	// Render the component to a string
 		const html = renderToString(
 			<Provider store={store}>
 				<AppContainer />
 			</Provider>
 		)
 
-		// Grab the initial state from our Redux store
-		const finalState = store.getState()
-
-		// Send the rendered page back to the client
-		res.send(renderFullPage(html, finalState))
-	})
+	// 	// Grab the initial state from our Redux store
+		
+	// 	// Send the rendered page back to the client
+	// })
+	const finalState = store.getState()
+	res.send(renderFullPage(html, finalState))
 }
 
 
