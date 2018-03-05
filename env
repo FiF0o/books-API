@@ -4,6 +4,7 @@ PROD_DB=
 TESTING_DB=
 
 PORT=
+CLIENT_PORT=
 
 ## development by default
 # NODE_ENV=
