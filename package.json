@@ -8,8 +8,8 @@
     "db:interface": "open http://localhost:28017/",
     "db": "npm run db:service && db:interface",
     "bundle": "NODE_ENV=development ./node_modules/.bin/webpack -w",
-    "server": "NODE_ENV=development nodemon ./public/server.js",
-    "start": "npm run bundle && npm run server"
+    "server": "NODE_ENV=development node server.js",
+    "start": "npm run bundle & npm run server"
   },
   "dependencies": {
     "body-parser": "1.16.0",

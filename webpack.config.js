@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
-const path = require('path')
 
 const clientConfig = {
   entry: './src/index.js',
@@ -55,7 +54,7 @@ const serverConfig = {
   target: 'node',
   output: {
     path: __dirname,
-    filename: './public/server.js',
+    filename: 'server.js',
     libraryTarget: 'commonjs2'
   },
   devtool: 'cheap-module-source-map',
