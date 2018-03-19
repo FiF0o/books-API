@@ -19,7 +19,7 @@ const store = createStore(reducers, preloadedState)
 
 render(
   <Provider store={store}>
-    <App />
+    <App books={preloadedState}/>
   </Provider>,
   document.getElementById('root')
 )

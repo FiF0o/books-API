@@ -9,13 +9,15 @@
     "db": "npm run db:service && db:interface",
     "bundle": "NODE_ENV=development ./node_modules/.bin/webpack -w",
     "server": "NODE_ENV=development node server.js",
-    "start": "npm run bundle & npm run server"
+    "start": "npm run bundle & npm run server",
+    "dev": "npm run bundle & NODE_ENV=development ./node_modules/.bin/nodemon server.js"
   },
   "dependencies": {
     "body-parser": "1.16.0",
     "cookie-parser": "~1.4.3",
     "dotenv": "5.0.1",
     "express": "4.14.1",
+    "isomorphic-fetch": "2.2.1",
     "mongoose": "4.8.2",
     "morgan": "1.7.0",
     "nodemon": "1.17.1",
