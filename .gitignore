@@ -42,3 +42,4 @@ data/
 public/
 .env
 *.map
+server.js

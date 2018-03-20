@@ -14,12 +14,10 @@ const preloadedState = window.__PRELOADED_STATE__
 // Allow the passed state to be garbage-collected
 delete window.__PRELOADED_STATE__
 
-const store = createStore(reducers, preloadedState)
+// const store = createStore(reducers, preloadedState)
 
 
 render(
-  <Provider store={store}>
-    <App books={preloadedState}/>
-  </Provider>,
+  <App books={preloadedState}/>,
   document.getElementById('root')
 )

@@ -4,6 +4,7 @@ import React from 'react'
 import {renderToString} from 'react-dom/server'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import cors from 'cors'
 import reducers from '../src/reducers/'
 import App from '../src/app'
 
@@ -12,7 +13,8 @@ const app = express();
 
 app.use(express.static('public'))
 
-app.use(handleRender)
+app.use(cors())
+app.get('*', handleRender)
 
 function handleRender(req, res) {
   let initialState = App.getInitialData()
@@ -22,11 +24,9 @@ function handleRender(req, res) {
       // const preloadedState = store.getState()
       // res.send(renderFullPage(html, preloadedState))
       // const store = createStore(reducers, preloadedState)
-      const store = createStore(reducers, data)
+      // const store = createStore(reducers, data)
       const html = renderToString(
-        <Provider store={store}>
-          <App books={data}/>
-        </Provider>
+        <App books={data}/>
       )
       res.send(renderFullPage(html, data))
     })
