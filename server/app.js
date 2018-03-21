@@ -5,8 +5,10 @@ import {renderToString} from 'react-dom/server'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import cors from 'cors'
+import { StaticRouter, matchPath } from 'react-router-dom'
 import reducers from '../src/reducers/'
 import App from '../src/app'
+import routes from '../src/routes'
 
 
 const app = express();
@@ -17,16 +19,16 @@ app.use(cors())
 app.get('*', handleRender)
 
 function handleRender(req, res) {
-  let initialState = App.getInitialData()
+  const currentRoute = routes.find(route => matchPath(req.url, route))
+
+  let initialState = currentRoute.component.getInitialData()
   Promise.resolve(initialState)
     .then(data => {
-      // const store = createStore(reducers, initialState)
-      // const preloadedState = store.getState()
-      // res.send(renderFullPage(html, preloadedState))
-      // const store = createStore(reducers, preloadedState)
-      // const store = createStore(reducers, data)
+      const context = {data}
       const html = renderToString(
-        <App books={data}/>
+        <StaticRouter location={req.url} context={context}>
+          <App/>
+        </StaticRouter>
       )
       res.send(renderFullPage(html, data))
     })

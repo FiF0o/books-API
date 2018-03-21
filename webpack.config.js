@@ -45,6 +45,12 @@ const clientConfig = {
   plugins: [
     new ExtractTextPlugin({
       filename: 'public/[name].css'
+    }),
+    // global var to allow data matching from server and client
+    new webpack.BannerPlugin({
+      banner: "__isBrowser__ = true;",
+      raw: true,
+      include: /\.js$/
     })
   ]
 };
@@ -84,7 +90,15 @@ const serverConfig = {
         query: { presets: ['react-app'] }
       }
     ]
-  }
+  },
+  plugins: [
+    // global var to allow data matching from server and client
+    new webpack.BannerPlugin({
+      banner: "__isBrowser__ = false;",
+      raw: true,
+      include: /\.js$/
+    })
+  ]
 };
 
 module.exports = [clientConfig, serverConfig];
