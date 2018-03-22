@@ -1,29 +1,8 @@
-import React from 'react';
-import 'isomorphic-fetch';
+import React from 'react'
+import 'isomorphic-fetch'
+import { connect } from 'react-redux'
 
-export default class Books extends React.Component {
-
-  constructor(props) {
-    super(props)
-
-    /**
-     * data from server passed in by the router in order to match client side 
-     * when page is rerendered
-    */
-    let data
-    if(__isBrowser__) {
-      // Grab the state from the global variable injected into the server-generated HTML
-      data = window.__PRELOADED_STATE__
-      // Allow the passed state to be garbage-collected
-      delete window.__PRELOADED_STATE__
-    } else {
-      data = props.staticContext.data
-    }
-
-    this.state = {
-      books: data
-    }
-  }
+class Books extends React.Component {
 
   static getInitialData() {
     // fetched from server via route
@@ -33,13 +12,14 @@ export default class Books extends React.Component {
   }
 
   componentDidMount() {
-    if(!this.state.books) Books.getInitialData()
+    if(!this.props.books) Books.getInitialData()
       .then(data => this.setState({books: data}))
       .catch(err => console.error(err))
   }
 
   render() {
-    const {books} = this.state
+    const {books} = this.props
+
     return (
       <ul>
         {
@@ -64,3 +44,11 @@ export default class Books extends React.Component {
     )
   }
 }
+
+
+const mapStateToProps = state => ({
+  books: state.books
+})
+
+
+export default connect(mapStateToProps, undefined)(Books)

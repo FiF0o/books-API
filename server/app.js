@@ -31,14 +31,26 @@ function handleRender(req, res, next) {
   let initialState = currentRoute.component.getInitialData()
   Promise.resolve(initialState)
     .then(data => {
-      // throw new Error('boom!')
       const context = {data}
+      // throw new Error('boom!')
+
+      /** compiles the initial state matching the shape of the state */
+      let preloadedState = {
+        books: [...data],
+        // anotherReducer: anotherFetch()...
+      }
+      const store = createStore(reducers, preloadedState)
+
+      const stateToRead = store.getState()
+
       const html = renderToString(
-        <StaticRouter location={req.url} context={context}>
-          <App/>
-        </StaticRouter>
+        <Provider store={store}>
+          <StaticRouter location={req.url} context={context}>
+            <App/>
+          </StaticRouter>
+        </Provider>
       )
-      res.send(renderFullPage(html, data))
+      res.send(renderFullPage(html, stateToRead))
     })
     // sends error from server to the client view - ** SHOULD BE DEV ONLY **
     .catch(next)
