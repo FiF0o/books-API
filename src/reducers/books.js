@@ -1,6 +1,6 @@
-const initialState = []
+import {initialState} from '../initialState'
 
-const books = (state = initialState, action) => {
+const books = (state = initialState.books, action) => {
 	switch (action.type) {
 		default: {
 			return state

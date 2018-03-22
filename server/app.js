@@ -2,13 +2,13 @@
 import express from 'express'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import cors from 'cors'
 import { StaticRouter, matchPath } from 'react-router-dom'
 import serialize from 'serialize-javascript'
 import sourceMapSupport from 'source-map-support'
-import reducers from '../src/reducers/'
+
+import {configureStore} from '../src/store'
 import App from '../src/app'
 import routes from '../src/routes'
 
@@ -39,7 +39,7 @@ function handleRender(req, res, next) {
         books: [...data],
         // anotherReducer: anotherFetch()...
       }
-      const store = createStore(reducers, preloadedState)
+      const store = configureStore(preloadedState)
 
       const stateToRead = store.getState()
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import Books from './Books'
+import Books from './pages/Books'
 
 const routes = [
   // {
