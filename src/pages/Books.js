@@ -1,9 +1,10 @@
 import React from 'react'
 import 'isomorphic-fetch'
 import { connect } from 'react-redux'
+import {addBook} from '../actions/books'
+import {Books} from '../components/Books'
 
-class Books extends React.Component {
-
+class BooksContainer extends React.Component {
   static getInitialData() {
     // fetched from server via route
     return fetch('http://localhost:3000/api/books')
@@ -12,35 +13,20 @@ class Books extends React.Component {
   }
 
   componentDidMount() {
-    if(!this.props.books) Books.getInitialData()
-      .then(data => this.setState({books: data}))
-      .catch(err => console.error(err))
+    if(!this.props.books) BooksContainer.getInitialData()
+    .catch(err => console.error(err))
   }
 
   render() {
-    const {books} = this.props
+    const {addBook, books} = this.props
 
     return (
-      <ul>
-        {
-          books.map(book =>
-            <li key={book._id}>
-              <p>{book._id}</p>
-              <p>{book.title}</p>
-              <p>{book.author}</p>
-              <p>{book.genre}</p>
-              <p>{book.type}</p>
-              <p>{book.description}</p>
-              <a href={book.link_buy}>{book.link_buy}</a>
-              <img src={book.link_img}/>
-              <p>
-                <i>{Date(String(book.create_date))}</i>
-                <button onClick={() => console.log('click')}>click</button>
-              </p>
-            </li>
-          )
-        }
-      </ul>
+      <section>
+        <Books
+          books={books}
+          addBook={addBook}
+        />
+      </section>
     )
   }
 }
@@ -50,5 +36,10 @@ const mapStateToProps = state => ({
   books: state.books
 })
 
+const mapDispatchToProps = dispatch => ({
+  addBook: (title, author, genre, type, description, link_buy, link_img) =>
+    dispatch(addBook(title, author, genre, type, description, link_buy, link_img)),
+});
 
-export default connect(mapStateToProps, undefined)(Books)
+
+export default connect(mapStateToProps, mapDispatchToProps)(BooksContainer)

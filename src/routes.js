@@ -1,5 +1,6 @@
 import React from 'react'
-import Books from './pages/Books'
+import BooksContainer from './pages/Books'
+
 
 const routes = [
   // {
@@ -10,7 +11,7 @@ const routes = [
   {
     path: "/",
     exact: true,
-    component: Books
+    component: BooksContainer
   }
 ];
 
