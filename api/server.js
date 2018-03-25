@@ -1,4 +1,6 @@
 import express from 'express'
+import cors from 'cors'
+
 import apiRouter from './resources'
 import {connect} from '../db'
 import {setupMiddleware} from './middlewares'
@@ -13,6 +15,8 @@ setupMiddleware(app)
 
 /** DB */
 connect()
+/** Allow api request from client */
+app.use(cors({origin: `http://localhost:${process.env.CLIENT_PORT || 3001}`}))
 
 
 /** Mount routers to the app */
