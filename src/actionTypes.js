@@ -1,5 +1,11 @@
+/** Books actions */
 const ADD_BOOK = 'ADD_BOOK'
+const FETCH_BOOKS = 'FETCH_BOOKS'
+const FETCH_BOOKS_SUCCESS = 'FETCH_BOOKS_SUCCESS'
+
 
 export {
-  ADD_BOOK
+  ADD_BOOK,
+  FETCH_BOOKS,
+  FETCH_BOOKS_SUCCESS
 }

@@ -9,6 +9,12 @@ const books = (state = initialState.books, action) => {
 			]
 		}
 
+		case 'FETCH_BOOKS_SUCCESS': {
+			return [
+				...state,
+			]
+		}
+
 		default: {
 			return state
 		}
