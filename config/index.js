@@ -6,7 +6,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 const env = process.env.NODE_ENV
 
 const baseConfig = {
-  port: process.env.PORT || 3000,
+  port: process.env.API_PORT || 3000,
   secrets: {},
   db: {
     url: process.env.DEV_DB

@@ -1,4 +1,4 @@
-const BASE_URL = `http://localhost:${process.env.PORT || 3000}/api`
+const BASE_URL = `http://localhost:${process.env.API_PORT || 3000}/api`
 const BOOKS_ROUTE = `books`
 
 

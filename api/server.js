@@ -16,7 +16,7 @@ setupMiddleware(app)
 /** DB */
 connect()
 /** Allow api request from client */
-app.use(cors({origin: `http://localhost:${process.env.CLIENT_PORT || 3001}`}))
+app.use(cors({origin: `http://localhost:${process.env.APP_PORT || 3001}`}))
 
 
 /** Mount routers to the app */

@@ -3,8 +3,8 @@ DEV_DB=
 PROD_DB=
 TESTING_DB=
 
-PORT=
-CLIENT_PORT=
+API_PORT=
+APP_PORT=
 
 ## development by default
 # NODE_ENV=

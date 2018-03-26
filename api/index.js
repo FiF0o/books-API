@@ -3,14 +3,14 @@ import http from 'http';
 import app from './server'
 import config from '../config'
 
-const PORT = config.port
+const API_PORT = config.port
 
 
 /** Wrap express app into http to use the http interface (events, or ws, etc..) */
 const server = http.createServer(app)
 
-server.listen(PORT, () => {
-  console.log(`API on port ${PORT}`)
+server.listen(API_PORT, () => {
+  console.log(`API on port ${API_PORT}`)
 })
 
 let currentApp = app
