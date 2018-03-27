@@ -61,7 +61,11 @@ export const postBook = formData => {
     `${BASE_URL}/${BOOKS_ROUTE}`,
     {
       method: 'POST',
-      body: formData
+      body: {...formData}
+    },
+    { // Additional Headers
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
     }
   ).then(resp => resp);
 }
