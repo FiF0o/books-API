@@ -1,6 +1,6 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeEvery, takeLatest, select} from 'redux-saga/effects'
 
-import {fetchBooks} from '../api'
+import {fetchBooks, postBook} from '../api'
 
 import {FETCH_BOOKS, FETCH_BOOKS_SUCCESS} from '../actionTypes'
 import {getBooksSuccess} from '../actions/books'
@@ -28,7 +28,27 @@ function* getBooksData(asyncFn) {
   }
 }
 
+/** POST books to API */
+function* postBookSaga() {
+  yield takeLatest('POST_BOOK', writeBookToApi)
+}
+
+function* writeBookToApi() {
+  try {
+
+    const bookToAdd = yield select(state => {
+      return state.books.book
+    })
+    const response = yield call(postBook, {...bookToAdd})
+    const data = response.resp
+    yield put({type: 'POST_BOOK_SUCCESS', payload: data})
+  } catch(e) {
+    console.error(e)
+  }
+}
+
 
 export {
-  fetchBooksSaga
+  fetchBooksSaga,
+  postBookSaga
 }

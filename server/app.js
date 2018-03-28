@@ -35,7 +35,10 @@ function handleRender(req, res, next) {
 
       /** compiles the initial state matching the shape of the state */
       let preloadedState = {
-        books: [...data],
+        books: {
+          bookList: [...data],
+          book: {}
+        },
         // anotherReducer: anotherFetch()...
       }
       const store = configureStore(preloadedState)

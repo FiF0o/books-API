@@ -2,11 +2,9 @@ import React from 'react'
 import 'isomorphic-fetch'
 import { connect } from 'react-redux'
 
-import {addBook, getBooks} from '../actions/books'
+import {getBooks, postBook} from '../actions/books'
 
 import {Books} from '../components/Books'
-
-import {postBook} from '../api'
 
 
 class BooksContainer extends React.Component {
@@ -23,17 +21,16 @@ class BooksContainer extends React.Component {
 
   _handleSubmit(e) {
     e.preventDefault()
-    const {title, author, genre, type, description, linkBuy, linkImg} = e.target
-    postBook({
+    const {title, author, genre, bookType, description, linkBuy, linkImg} = e.target
+    this.props.postBook({
       title: title.value,
       author: author.value,
       genre: genre.value,
-      type: type.value,
+      bookType: bookType.value,
       description: description.value,
       linkBuy: linkBuy.value,
       linkImg: linkImg.value
     })
-    this.props.addBook(title.value, author.value, genre.value, type.value, description.value, linkBuy.value, linkImg.value)
     e.target.reset()
   }
 
@@ -61,8 +58,8 @@ class BooksContainer extends React.Component {
           <label htmlFor='genre'>genre</label>
           <input type='text' name='genre' id='genre'/>
           <br/>
-          <label htmlFor='type'>type</label>
-          <input type='text' name='type' id='type'/>
+          <label htmlFor='bookType'>type</label>
+          <input type='text' name='bookType' id='bookType'/>
           <br/>
           <label htmlFor='description'>description</label>
           <input type='text' name='description' id='description'/>
@@ -87,12 +84,12 @@ class BooksContainer extends React.Component {
 
 
 const mapStateToProps = state => ({
-  books: state.books
+  books: state.books.bookList
 })
 
 const mapDispatchToProps = dispatch => ({
-  addBook: (title, author, genre, type, description, link_buy, link_img) =>
-    dispatch(addBook(title, author, genre, type, description, link_buy, link_img)),
+  postBook: (title, author, genre, type, description, link_buy, link_img) =>
+    dispatch(postBook(title, author, genre, type, description, link_buy, link_img)),
   getBooks: () => dispatch(getBooks()),
 });
 

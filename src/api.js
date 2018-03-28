@@ -1,3 +1,5 @@
+import 'isomorphic-fetch'
+
 const BASE_URL = `http://localhost:${process.env.API_PORT || 3000}/api`
 const BOOKS_ROUTE = `books`
 
@@ -56,19 +58,17 @@ export const fetchBook = bookId => api(
   {method: 'GET'},
 );
 
-export const postBook = formData => {
-  return api(
-    `${BASE_URL}/${BOOKS_ROUTE}`,
-    {
-      method: 'POST',
-      body: {...formData}
-    },
-    { // Additional Headers
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }
-  ).then(resp => resp);
-}
+export const postBook = formData => api(
+  `${BASE_URL}/${BOOKS_ROUTE}`,
+  {
+    method: 'POST',
+    body: JSON.stringify({...formData})
+  },
+  { // Additional Headers
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  }
+).then(resp => resp);
 
 
 export { api };

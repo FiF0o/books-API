@@ -1,3 +1,6 @@
 export const initialState = {
-  books: []
+  books: {
+    bookList: [],
+    book: {}
+  }
 }

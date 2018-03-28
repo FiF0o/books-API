@@ -22,10 +22,10 @@ export const booksSchema = new mongoose.Schema({
   description: {
       type: String
   },
-  link_img: {
+  linkImg: {
       type: String
   },
-  link_buy: {
+  linkBuy: {
       type: String
   },
   create_date: {
