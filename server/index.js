@@ -1,5 +1,7 @@
 const app = require('./app');
 const http = require('http');
+const WebSocketServer = require('websocket').server;
+
 
 const port = normalizePort(process.env.APP_PORT || '3001');
 app.set('port', port);
@@ -7,8 +9,22 @@ app.set('port', port);
 const server = http.createServer(app);
 server.listen(port);
 
-server.on('error', onError);
-server.on('listening', onListening);
+// upgrade server to ws
+const wsServer = new WebSocketServer({httpServer: server})
+
+wsServer.on('request', (request) => {
+  const connection = request.accept('echo-protocol', request.origin);
+  console.log((new Date()) + ' Connection accepted.');
+  // sends payload to client
+  const json = JSON.stringify({
+    type: 'message',
+    data: 'hello'
+  })
+  connection.sendUTF(json)
+})
+
+wsServer.on('error', onError);
+wsServer.on('listening', onListening);
 
 
 function normalizePort(val) {

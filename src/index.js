@@ -11,6 +11,23 @@ import App from './app'
 import './main.css'
 
 
+const socket = new WebSocket(`ws://localhost:${process.env.APP_PORT || 3001}`, 'echo-protocol');
+
+socket.onopen = (connection) => {
+  console.log('client connection opened...')
+  console.log(connection)
+}
+
+socket.onerror = (error) => {
+  console.error(error)
+}
+
+socket.onmessage = (message) => {
+  console.log('from server:')
+  console.log(message)
+};
+
+
 // Grab the state from the global variable injected into the server-generated HTML
 const preloadedState = window.__PRELOADED_STATE__
 

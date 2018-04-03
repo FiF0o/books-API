@@ -32,7 +32,8 @@
     "redux-saga": "0.16.0",
     "serialize-javascript": "1.4.0",
     "source-map-support": "0.5.4",
-    "webpack": "3.11.0"
+    "webpack": "3.11.0",
+    "websocket": "1.0.25"
   },
   "devDependencies": {
     "autoprefixer": "8.1.0",
