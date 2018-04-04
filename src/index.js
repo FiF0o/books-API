@@ -16,6 +16,11 @@ const socket = new WebSocket(`ws://localhost:${process.env.APP_PORT || 3001}`, '
 socket.onopen = (connection) => {
   console.log('client connection opened...')
   console.log(connection)
+
+  socket.send(JSON.stringify({
+    type: 'message',
+    data: 'ping'
+  }))
 }
 
 socket.onerror = (error) => {

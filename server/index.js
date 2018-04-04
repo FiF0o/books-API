@@ -13,14 +13,27 @@ server.listen(port);
 const wsServer = new WebSocketServer({httpServer: server})
 
 wsServer.on('request', (request) => {
+
   const connection = request.accept('echo-protocol', request.origin);
   console.log((new Date()) + ' Connection accepted.');
+
   // sends payload to client
   const json = JSON.stringify({
     type: 'message',
     data: 'hello'
   })
   connection.sendUTF(json)
+
+  // respond back to client 'message' event
+  connection.on('message', (message) => {
+    connection.sendUTF(
+      JSON.stringify({
+        type: 'message',
+        data: 'pong'
+      })
+    )
+  })
+
 })
 
 wsServer.on('error', onError);
