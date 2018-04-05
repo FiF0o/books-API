@@ -7,30 +7,10 @@ import {configureStore, sagaMiddleware} from './store'
 import rootSaga from './sagas'
 import reducers from './reducers'
 
+import {initWebsocket} from '../services/websockets'
+
 import App from './app'
 import './main.css'
-
-
-const socket = new WebSocket(`ws://localhost:${process.env.APP_PORT || 3001}`, 'echo-protocol');
-
-socket.onopen = (connection) => {
-  console.log('client connection opened...')
-  console.log(connection)
-
-  socket.send(JSON.stringify({
-    type: 'message',
-    data: 'ping'
-  }))
-}
-
-socket.onerror = (error) => {
-  console.error(error)
-}
-
-socket.onmessage = (message) => {
-  console.log('from server:')
-  console.log(message)
-};
 
 
 // Grab the state from the global variable injected into the server-generated HTML
@@ -41,6 +21,10 @@ delete window.__PRELOADED_STATE__
 
 
 const store = configureStore(preloadedState)
+
+
+const socket = initWebsocket(store.dispatch)
+
 
 sagaMiddleware.run(rootSaga)
 
