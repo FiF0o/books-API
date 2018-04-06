@@ -4,7 +4,7 @@ import {Provider} from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
 import {configureStore, sagaMiddleware} from './store'
-import rootSaga from './sagas'
+import {configureRootSaga} from './sagas'
 import reducers from './reducers'
 
 import {initWebsocket} from '../services/websockets'
@@ -23,10 +23,11 @@ delete window.__PRELOADED_STATE__
 const store = configureStore(preloadedState)
 
 
-const socket = initWebsocket(store.dispatch)
+sagaMiddleware.run(configureRootSaga(store.dispatch))
 
 
-sagaMiddleware.run(rootSaga)
+// opens a ws
+store.dispatch({type: 'INIT_WEBSOCKET'})
 
 
 render(
