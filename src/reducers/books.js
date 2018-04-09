@@ -33,7 +33,9 @@ const books = (state = initialState.books, action) => {
 				}
 			}
 		}
-		case 'POST_BOOK_SUCCESS': {
+		case
+		'POST_BOOK_SUCCESS',
+		'WS_ADD_BOOK': {
 			return compose(
 				assoc('book', {}),
 				assoc('bookList', [...state.bookList, {...action.payload}])

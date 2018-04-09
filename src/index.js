@@ -26,10 +26,6 @@ const store = configureStore(preloadedState)
 sagaMiddleware.run(configureRootSaga(store.dispatch))
 
 
-// opens a ws
-store.dispatch({type: 'INIT_WEBSOCKET'})
-
-
 render(
   <Provider store={store}>
     <BrowserRouter>
