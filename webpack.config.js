@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const postcssImport = require('postcss-import')
 
 const clientConfig = {
   entry: './src/index.js',
@@ -22,14 +23,37 @@ const clientConfig = {
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
+          fallback: [{
+            loader: 'style-loader',
+            options: {
+              sourceMap: true
+            }
+          }],
           use: [
             {
               loader: 'css-loader',
-              options: { importLoaders: 1 }
+              options: {
+                sourceMap: true,
+                importLoaders: 1
+              }
             },
             {
               loader: 'postcss-loader',
-              options: { plugins: [autoprefixer()] }
+              options: {
+                sourceMap: true,
+                ident: 'postcss',
+                plugins: () => [
+                  autoprefixer({
+                    browsers: [
+                      '>1%',
+                      'last 4 versions',
+                      'Firefox ESR',
+                      'not ie < 9',
+                    ]
+                  }),
+                  postcssImport()
+                ]
+              }
             }
           ]
         })
