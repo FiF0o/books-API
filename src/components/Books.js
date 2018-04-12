@@ -1,26 +1,28 @@
 import React from 'react'
 
 
+/* <div className="mdc-card__media-content">{book.title}</div> */
 export const Books = ({books, addBook, getBooks}) => (
   <div>
-    <ul>
-      {
-        books.map(book =>
-          <li key={book._id}>
-            <p>{book._id}</p>
-            <p>{book.title}</p>
-            <p>{book.author}</p>
-            <p>{book.genre}</p>
-            <p>{book.type}</p>
-            <p>{book.description}</p>
-            <a href={book.link_buy}>{book.link_buy}</a>
-            <img src={book.link_img}/>
-            <p>
-              <i>{Date(String(book.create_date))}</i>
-            </p>
-          </li>
-        )
-      }
-    </ul>
+    {
+      books.map(book =>
+        <div
+          key={book._id}
+          className="mdc-card__media"
+          style={{marginTop: '4em'}}
+        >
+          <a className="mdc-card__primary-action mdc-ripple-upgraded mdc-ripple-upgraded--foreground-activation">
+            <div className='mdc-card__media mdc-card__media--16-9 demo-card__media demo-card__media--16-9' style={{backgroundImage: `url(${book.link_img})`}}></div>
+            <div className="demo-card__primary">
+              <h2 className="demo-card__title mdc-typography--title">Our Changing Planet</h2>
+              <h3 className="demo-card__subtitle mdc-typography--subheading1">by Kurt Wagner</h3>
+            </div>
+            <div className="demo-card__secondary mdc-typography--body1">
+              Visit ten places on our planet that are undergoing the biggest changes today.
+            </div>
+          </a>
+        </div>
+      )
+    }
   </div>
 )

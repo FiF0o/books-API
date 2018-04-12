@@ -44,39 +44,48 @@ class BooksContainer extends React.Component {
     const {addBook, books, getBooks} = this.props
 
     return (
-      <section>
-        <form
-          onSubmit={this._handleSubmit}
-          method="post"
-        >
-          <label htmlFor='title'>title</label>
-          <input type='text' name='title' id='title'/>
-          <br/>
-          <label htmlFor='author'>author</label>
-          <input type='text' name='author' id='author'/>
-          <br/>
-          <label htmlFor='genre'>genre</label>
-          <input type='text' name='genre' id='genre'/>
-          <br/>
-          <label htmlFor='bookType'>type</label>
-          <input type='text' name='bookType' id='bookType'/>
-          <br/>
-          <label htmlFor='description'>description</label>
-          <input type='text' name='description' id='description'/>
-          <br/>
-          <label htmlFor='linkBuy'>link_buy</label>
-          <input type='text' name='linkBuy' id='linkBuy'/>
-          <br/>
-          <label htmlFor='linkImg'>link_img</label>
-          <input type='text' name='linkImg' id='linkImg'/>
-          <br/>
-          <input type='submit' value='submit'/>
-        </form>
-        <Books
-          books={books}
-          addBook={addBook}
-          getBooks={getBooks}
-        />
+      <section className="mdc-layout-grid__inner">
+        <div className="mdc-layout-grid__cell--span-12">
+          <form
+            onSubmit={this._handleSubmit}
+            method="post"
+          >
+            <br/>
+            <input type='text' name='title' id='title' className="mdc-text-field__input" placeholder="Title"/>
+            <br/>
+            <input type='text' name='author' id='author' className="mdc-text-field__input" placeholder="Author"/>
+            <br/>
+            <input type='text' name='genre' id='genre' className="mdc-text-field__input" placeholder="Genre"/>
+            <br/>
+            <input type='text' name='bookType' id='bookType' className="mdc-text-field__input" placeholder="Type of book"/>
+            <br/>
+            <input type='text' name='description' id='description' className="mdc-text-field__input" placeholder="Description"/>
+            <br/>
+            <input type='text' name='linkBuy' id='linkBuy' className="mdc-text-field__input" placeholder="Link to buy"/>
+            <br/>
+            <input type='text' name='linkImg' id='linkImg' className="mdc-text-field__input" placeholder="Link for image"/>
+            <br/>
+            <button
+              className="mdc-button mdc-button--raised mdc-button--dense"
+              type='submit'
+              value='submit'
+              style={{
+                float: 'right',
+                marginTop: '2em',
+                marginBottom: '4em'
+              }}
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+        <div className="demo-cell mdc-layout-grid__cell--span-12">
+          <Books
+            books={books}
+            addBook={addBook}
+            getBooks={getBooks}
+          />
+        </div>
       </section>
     )
   }
