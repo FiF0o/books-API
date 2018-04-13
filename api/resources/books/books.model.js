@@ -32,9 +32,11 @@ export const booksSchema = new mongoose.Schema({
       type: Date,
       default: Date.now
   },
+  bookType: {
+      type: String
+  },
   favorite: {
     type: Boolean,
-    required: true,
     default: false
   }
 })

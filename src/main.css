@@ -5,8 +5,8 @@
 * https://material.io/components/web/docs/getting-started/
 *
 **/
-/* @import '@material/base/dist/mdc.base.css'; */
 @import '@material/layout-grid/dist/mdc.layout-grid.css';
+/* @import '@material/icon-toggle/dist/mdc.icon-toggle.css'; */
 
 @import '@material/typography/dist/mdc.typography.css';
 
@@ -15,15 +15,25 @@
 @import '@material/button/dist/mdc.button.css';
 
 @import '@material/textfield/dist/mdc.textfield.css';
-@import '@material/card/dist/mdc.card.css'
+@import '@material/card/dist/mdc.card.css';
 
 
 /**
 * Overides
 **/
 
-
-
 /** 1-Layout **/
 
 
+
+/** 1-Inputs & al **/
+.mdc-text-field__input {
+  border-color: rgba(0, 0, 0, .1);
+}
+
+
+
+/** Globals **/
+:root {
+  background-color: rgba(0, 0, 0, .05);
+}

@@ -30,6 +30,7 @@ const books = (state = initialState.books, action) => {
 					linkBuy: action.linkBuy,
 					linkBuy: action.linkBuy,
 					linkImg: action.linkImg,
+					favorite: action.favorite
 				}
 			}
 		}

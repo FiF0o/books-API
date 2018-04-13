@@ -18,7 +18,8 @@ const postBook = ({title, author, genre, bookType, description, linkBuy, linkImg
   bookType,
   description,
   linkBuy,
-  linkImg
+  linkImg,
+  favorite: false
 })
 
 const postBookSuccess = payload => ({
