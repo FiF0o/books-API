@@ -43,9 +43,9 @@ class BooksContainer extends React.Component {
     const {addBook, books, getBooks} = this.props
 
     return (
-      <div class="mdc-layout-grid__inner">
+      <div className="mdc-layout-grid__inner">
 
-        <div class="mdc-layout-grid__cell--span-12">
+        <div className="mdc-layout-grid__cell--span-12">
           <h1 className="mdc-typography--display1">Books</h1>
           <h2 className="mdc-typography--headline">Add your book</h2>
         </div>

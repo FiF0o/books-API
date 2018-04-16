@@ -5,11 +5,11 @@ export const Books = ({books, addBook, getBooks}) =>
 <div className="mdc-layout-grid__inner">
     {
       books.map(book =>
-        <div className="mdc-layout-grid__cell--span-6">
-          <div
-            key={book._id}
-            className="mdc-card mdc-card__media"
-          >
+        <div
+          key={book._id}
+          className="mdc-layout-grid__cell--span-6"
+        >
+          <div className="mdc-card mdc-card__media">
             <a
               className="mdc-card__primary-action mdc-ripple-upgraded mdc-ripple-upgraded--foreground-activation"
               href={book.linkBuy}
