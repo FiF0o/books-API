@@ -10,7 +10,7 @@ import reducers from './reducers'
 import {initWebsocket} from '../services/websockets'
 
 import App from './app'
-import './main.css'
+import './styles/main.css'
 
 
 // Grab the state from the global variable injected into the server-generated HTML

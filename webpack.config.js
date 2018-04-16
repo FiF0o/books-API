@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const postcssImport = require('postcss-import')
@@ -12,6 +13,18 @@ const clientConfig = {
   devtool: 'cheap-module-source-map',
   module: {
     rules: [
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'public/assets/fonts/[name].[hash:8].[ext]',
+              publicPath: url => url.replace(/public/, '')
+            }
+          }
+        ]
+      },
       {
         test: [/\.svg$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
         loader: 'file-loader',

@@ -1,0 +1,84 @@
+/**
+* Material-componentss-web
+*
+* https://github.com/material-components/material-components-web/blob/master/docs/getting-started.md
+* https://material.io/components/web/docs/getting-started/
+*
+**/
+@import '@material/layout-grid/dist/mdc.layout-grid.css';
+@import '@material/icon-toggle/dist/mdc.icon-toggle.css';
+
+@import '@material/typography/dist/mdc.typography.css';
+
+@import '@material/grid-list/dist/mdc.grid-list.css';
+@import '@material/list/dist/mdc.list.css';
+@import '@material/button/dist/mdc.button.css';
+
+@import '@material/textfield/dist/mdc.textfield.css';
+@import '@material/card/dist/mdc.card.css';
+
+
+/**
+* Overides
+**/
+
+/** 1-Layout **/
+
+
+
+/** 2-Fonts
+* Self hosting method
+* https://google.github.io/material-design-icons/
+* https://material.io/components/web/catalog/buttons/icon-toggle-buttons/
+* demo: https://material-components-web.appspot.com/icon-toggle.html
+* icons: https://material.io/icons/
+**/
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./assets/fonts/MaterialIcons-Regular.eot');
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url('./assets/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+       url('./assets/fonts/MaterialIcons-Regular.woff') format('woff'),
+       url('./assets/fonts/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+
+/** 3-Inputs & al **/
+.mdc-text-field__input {
+  border-color: rgba(0, 0, 0, .1);
+}
+
+
+
+/** Globals **/
+:root {
+  background-color: rgba(0, 0, 0, .05);
+}

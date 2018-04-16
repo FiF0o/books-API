@@ -1,6 +1,7 @@
 import React from 'react'
+import '@material/icon-toggle/dist/mdc.icon-toggle.css'
 
-export const Books = ({books, addBook, getBooks}) => (
+export const Books = ({books, addBook, getBooks}) =>
   <div>
     {
       books.map(book =>
@@ -33,12 +34,17 @@ export const Books = ({books, addBook, getBooks}) => (
           </a>
           <div className="mdc-card__actions">
             <div className="mdc-card__action-buttons">
+              <button className="mdc-button mdc-card__action mdc-card__action--button mdc-ripple-upgraded">Button doing nothing</button>
             </div>
             <div className="mdc-card__action-icons">
+              <span className="mdc-icon-toggle" role="button" aria-pressed="false"
+                aria-label="Star this item" tabIndex="0"
+              >
+                <i className="mdc-icon-toggle material-icons mdc-card__action mdc-card__action--icon mdc-ripple-upgraded mdc-ripple-upgraded--unbounded" tabIndex="0" role="button" title="Add to favorites">favorite_border</i>
+              </span>
             </div>
           </div>
         </div>
       )
     }
   </div>
-)

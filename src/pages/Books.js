@@ -6,7 +6,6 @@ import {getBooks, postBook} from '../actions/books'
 
 import {Books} from '../components/Books'
 
-
 class BooksContainer extends React.Component {
   constructor(props) {
     super(props)
