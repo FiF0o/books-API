@@ -5,11 +5,11 @@ import routes from './routes'
 
 const App = () => {
   return (
-    <Switch>
-      <div className="mdc-layout-grid">
-        {routes.map((route, i) => <Route key={i} {...route} />)}
-      </div>
-    </Switch>
+    <div className="mdc-layout-grid">
+      <Switch>
+          {routes.map((route, i) => <Route key={i} {...route} />)}
+      </Switch>
+    </div>
   );
 };
 
