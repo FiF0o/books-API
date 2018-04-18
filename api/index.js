@@ -1,17 +1,85 @@
-import http from 'http';
+// https://github.com/graphcool/graphql-yoga
+const { GraphQLServer } = require('graphql-yoga')
 
 import app from './server'
+
 import config from '../config'
 
-const API_PORT = config.port
+// Root fields & Schema definition
+// TODO - Move into a separate file
+const typeDefs = `
+type Query {
+  info: String!
+  getBooks: [Book!]!
+}
+
+type Mutation {
+  postBook(url: String!, description: String!): Book!
+}
+
+type Book {
+  id: ID!
+  description: String!
+  url: String
+}
+`
+
+// mocking DB - store books at runtime
+let books = [{
+  id: `book-0`,
+  url: 'www.howtographql.com',
+  description: 'description example'
+}]
+let idCount = books.length
 
 
-/** Wrap express app into http to use the http interface (events, or ws, etc..) */
-const server = http.createServer(app)
+// 2 - Resolvers named after the corresponding field definitions/typeDefs - Schema definition
+// TODO - Move into a separate file
+const resolvers = {
+  /** QUERIES */
+  Query: {
+    info: () => `This is the API of a Hackernews Clone`,
+    getBooks: () => books,
+  },
 
-server.listen(API_PORT, () => {
-  console.log(`API on port ${API_PORT}`)
+  // implied graphQL resolvers for Book - not needed, demo purpose
+  Book: {
+    id: (root) => root.id,
+    url: (root) => root.url,
+    description: (root) => root.description
+  },
+
+  /** MUTATIONS */
+  Mutation: {
+    postBook: (root, args) => {
+      const newBook = {
+        id: `book-${idCount++}`,
+        description: args.description,
+        url: args.url
+      }
+      books.push(newBook)
+
+      return newBook
+    }
+  }
+}
+
+
+const graphQLServer = new GraphQLServer({
+  typeDefs,
+  resolvers,
 })
+
+
+const options = {
+  port: config.port,
+  //TODO - Mount routes
+  endpoint: '/api',
+  subscriptions: '/subscriptions',
+  playground: '/playground',
+}
+
+graphQLServer.start(options, ({port}) => console.log(`starting on PORT ${config.port}`))
 
 let currentApp = app
 

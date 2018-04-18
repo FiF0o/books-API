@@ -20,7 +20,8 @@ app.use(cors({origin: `http://localhost:${process.env.APP_PORT || 3001}`}))
 
 
 /** Mount routers to the app */
-app.use('/api', apiRouter)
+// app.use('/api', apiRouter)
+
 
 app.get('/', (req, res, next) => {
   res.json({ok: true})
