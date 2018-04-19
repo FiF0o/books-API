@@ -6,5 +6,8 @@ TESTING_DB=
 API_PORT=
 APP_PORT=
 
+export PRISMA_DB_SECRET=
+export PRISMA_CLUSTER=
+
 ## development by default
 # NODE_ENV=

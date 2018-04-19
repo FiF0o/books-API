@@ -1,0 +1,18 @@
+type Book {
+  id: ID! @unique
+  author: String!
+  title: String!
+  bookType: String
+  genre: Genre
+  create_date: DateTime!
+  description: String!
+  linkImg: String
+  linkBuy: String
+  favorite: Boolean!
+}
+
+type Genre {
+  id: ID! @unique
+  name: String!
+  create_date: DateTime!
+}
