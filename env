@@ -6,8 +6,11 @@ TESTING_DB=
 API_PORT=
 APP_PORT=
 
-export PRISMA_DB_SECRET=
-export PRISMA_CLUSTER=
+# export them before deploying
+PRISMA_DB_ENDPOINT=
+PRISMA_DB_SECRET=
+PRISMA_CLUSTER=
+PRISMA_BEARER_TOKEN=
 
 ## development by default
 # NODE_ENV=

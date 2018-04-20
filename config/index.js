@@ -9,7 +9,8 @@ const baseConfig = {
   port: process.env.API_PORT || 3000,
   secrets: {},
   db: {
-    url: process.env.DEV_DB
+    url: process.env.PRISMA_DB_ENDPOINT,
+    secret: process.env.PRISMA_DB_SECRET
   }
 }
 

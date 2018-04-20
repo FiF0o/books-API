@@ -1,0 +1,10 @@
+# import Book from from "./generated/prisma.graphql"
+
+type Query {
+  info: String!
+  getBooks: [Book!]!
+}
+
+type Mutation {
+  postBook(author: String!, title: String!, description: String!, favorite: Boolean!): Book!
+}

@@ -1,73 +1,33 @@
 // https://github.com/graphcool/graphql-yoga
-const { GraphQLServer } = require('graphql-yoga')
-
-import app from './server'
+import { GraphQLServer } from 'graphql-yoga'
+import { Prisma } from 'prisma-binding'
+import { printSchema } from 'graphql'
 
 import config from '../config'
 
-// Root fields & Schema definition
-// TODO - Move into a separate file
-const typeDefs = `
-type Query {
-  info: String!
-  getBooks: [Book!]!
-}
+import app from './server'
 
-type Mutation {
-  postBook(url: String!, description: String!): Book!
-}
+import Mutation from './resolvers/Mutation'
+import Query from './resolvers/Query'
 
-type Book {
-  id: ID!
-  description: String!
-  url: String
-}
-`
-
-// mocking DB - store books at runtime
-let books = [{
-  id: `book-0`,
-  url: 'www.howtographql.com',
-  description: 'description example'
-}]
-let idCount = books.length
-
-
-// 2 - Resolvers named after the corresponding field definitions/typeDefs - Schema definition
-// TODO - Move into a separate file
 const resolvers = {
-  /** QUERIES */
-  Query: {
-    info: () => `This is the API of a Hackernews Clone`,
-    getBooks: () => books,
-  },
-
-  // implied graphQL resolvers for Book - not needed, demo purpose
-  Book: {
-    id: (root) => root.id,
-    url: (root) => root.url,
-    description: (root) => root.description
-  },
-
-  /** MUTATIONS */
-  Mutation: {
-    postBook: (root, args) => {
-      const newBook = {
-        id: `book-${idCount++}`,
-        description: args.description,
-        url: args.url
-      }
-      books.push(newBook)
-
-      return newBook
-    }
-  }
+  Query,
+  Mutation
 }
 
 
 const graphQLServer = new GraphQLServer({
-  typeDefs,
+  typeDefs: './api/schema.graphql',
   resolvers,
+  context: req => ({
+    ...req,
+    db: new Prisma({
+      typeDefs: 'api/generated/prisma.graphql',
+      endpoint: `${config.db.url}`,
+      secret: `${config.db.secret}`,
+      debug: true,
+    })
+  })
 })
 
 

@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 
 import apiRouter from './resources'
-import {connect} from '../db'
+// import {connect} from '../db'
 import {setupMiddleware} from './middlewares'
 import {apiErrorMiddleware} from './modules/apiErrorHandling'
 
@@ -14,7 +14,8 @@ const app = express()
 setupMiddleware(app)
 
 /** DB */
-connect()
+// TODO - To remove. Comment as we are switching to graphql
+// connect()
 /** Allow api request from client */
 app.use(cors({origin: `http://localhost:${process.env.APP_PORT || 3001}`}))
 
