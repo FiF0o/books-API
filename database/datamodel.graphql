@@ -8,9 +8,18 @@ type Book {
   linkImg: String
   linkBuy: String
   favorite: Boolean!
+  postedBy: User
 }
 
 type Genre {
   id: ID! @unique
   name: String!
+}
+
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+  books: [Book!]!
 }

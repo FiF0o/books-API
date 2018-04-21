@@ -13,6 +13,7 @@
     "dev": "npm run bundle & NODE_ENV=development ./node_modules/.bin/nodemon server.js"
   },
   "dependencies": {
+    "bcryptjs": "2.4.3",
     "body-parser": "1.16.0",
     "cookie-parser": "~1.4.3",
     "cors": "2.8.4",
@@ -21,6 +22,7 @@
     "graphql-cli": "2.15.9",
     "graphql-yoga": "1.8.5",
     "isomorphic-fetch": "2.2.1",
+    "jsonwebtoken": "8.2.1",
     "material-components-web": "0.34.1",
     "material-design-icons": "3.0.1",
     "mongoose": "4.8.2",

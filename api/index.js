@@ -7,12 +7,14 @@ import config from '../config'
 
 import app from './server'
 
-import Mutation from './resolvers/Mutation'
 import Query from './resolvers/Query'
+import Mutation from './resolvers/Mutation'
+import AuthPayload from './resolvers/AuthPayload'
 
 const resolvers = {
   Query,
-  Mutation
+  Mutation,
+  AuthPayload
 }
 
 
