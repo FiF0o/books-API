@@ -1,3 +1,4 @@
+# DB layer: Incoming requests & communicating with Prisma
 type Book {
   id: ID! @unique
   author: String!

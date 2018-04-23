@@ -1,14 +1,17 @@
 # import Book from from "./generated/prisma.graphql"
 
+# App layer communicating with Prisma bindings/layer
 type Query {
   info: String!
   getBooks: [Book!]!
+  getUsers: [User]!
 }
 
 
 type Mutation {
   postBook(author: String!, title: String!, description: String!, favorite: Boolean!): Book!
   signup(email: String!, password: String!, name: String!): AuthPayload
+  login(email: String!, password: String!): AuthPayload
 }
 
 
@@ -17,6 +20,7 @@ type AuthPayload {
   user: User
 }
 
+# Private, we are not exposing User type from the datamodel containing password, etc..
 type User {
   id: ID!
   name: String!
