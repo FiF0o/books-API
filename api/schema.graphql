@@ -3,7 +3,7 @@
 # App layer communicating with Prisma bindings/layer
 type Query {
   info: String!
-  getBooks: [Book!]!
+  getBooks(filter: String): [Book!]!
   getUsers: [User]!
 }
 
