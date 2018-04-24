@@ -36,9 +36,9 @@ const graphQLServer = new GraphQLServer({
 const options = {
   port: config.port,
   //TODO - Mount routes
-  endpoint: '/api',
-  subscriptions: '/subscriptions',
-  playground: '/playground',
+  // endpoint: '/api',
+  // subscriptions: '/subscriptions',
+  // playground: '/playground',
 }
 
 graphQLServer.start(options, ({port}) => console.log(`starting on PORT ${config.port}`))

@@ -1,4 +1,4 @@
-# DB layer: Incoming requests & communicating with Prisma
+# DB layer: Incoming requests & communicating with Prisma => ./api/generated/prisma.graphql
 type Book {
   id: ID! @unique
   author: String!

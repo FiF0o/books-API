@@ -11,7 +11,12 @@ async function getBooks(root, args, context, info) {
     :
     {}
   // query ($filter: String) { books(where:{...}) }
-  return await context.db.query.books({ where }, info)
+  return await context.db.query
+    .books({
+      where,
+      skip: args.skip,
+      first: args.first
+    }, info)
 }
 
 async function getUsers(root, args, context, info) {
