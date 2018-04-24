@@ -15,7 +15,8 @@ async function getBooks(root, args, context, info) {
     .books({
       where,
       skip: args.skip,
-      first: args.first
+      first: args.first,
+      orderBy: args.orderBy
     }, info)
 }
 
