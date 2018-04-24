@@ -10,24 +10,39 @@ async function getBooks(root, args, context, info) {
     }
     :
     {}
+
   // query ($filter: String) { books(where:{...}) }
-  return await context.db.query
+  const queriedBooks = await context.db.query
     .books({
       where,
       skip: args.skip,
       first: args.first,
       orderBy: args.orderBy
-    }, info)
+    }, `{id}`)
+
+    const countSelectionSet = `
+      {
+        aggregate {
+          count
+        }
+      }
+    `
+    const booksConnection = await context.db.query
+      .booksConnection({}, countSelectionSet)
+
+    // passed down to BookFeed.js in the resolution chain
+    return {
+      count: booksConnection.aggregate.count,
+      bookIds: queriedBooks.map(link => link.id),
+    }
+
 }
 
 async function getUsers(root, args, context, info) {
   return await context.db.query.users({}, info)
 }
 
-const info = () => `Hello!`
-
 module.exports = {
   getBooks,
-  info,
   getUsers
 }

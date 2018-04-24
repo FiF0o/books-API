@@ -10,11 +10,13 @@ import app from './server'
 import Query from './resolvers/Query'
 import Mutation from './resolvers/Mutation'
 import AuthPayload from './resolvers/AuthPayload'
+import BookFeed  from './resolvers/BookFeed'
 
 const resolvers = {
   Query,
   Mutation,
-  AuthPayload
+  AuthPayload,
+  BookFeed
 }
 
 

@@ -1,13 +1,18 @@
 # import Book, BookOrderByInput from "./generated/prisma.graphql"
 
 # App layer communicating with Prisma bindings/layer
+###########
+# QUERIES #
+###########
 type Query {
-  info: String!
-  getBooks(filter: String, skip: Int, first: Int, orderBy: BookOrderByInput): [Book!]!
+  getBooks(filter: String, skip: Int, first: Int, orderBy: BookOrderByInput): BookFeed!
   getUsers: [User]!
 }
 
 
+#############
+# MUTATIONS #
+#############
 type Mutation {
   postBook(author: String!, title: String!, description: String!, favorite: Boolean!): Book!
   signup(email: String!, password: String!, name: String!): AuthPayload
@@ -15,6 +20,14 @@ type Mutation {
 }
 
 
+#################
+# SUBSCRIPTIONS #
+#################
+
+
+################
+# CUSTOM TYPES #
+################
 type AuthPayload {
   token: String
   user: User
@@ -26,4 +39,10 @@ type User {
   name: String!
   email: String!
   books: [Book!]!
+}
+
+type BookFeed {
+  # BookFeed.js - books()
+  books: [Book!]!
+  count: Int!
 }
