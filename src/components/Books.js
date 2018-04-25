@@ -1,7 +1,8 @@
 import React from 'react'
 import '@material/icon-toggle/dist/mdc.icon-toggle.css'
 
-export const Books = ({books, addBook, getBooks}) =>
+
+export const Books = ({books, /*addBook, getBooks}*/}) =>
 <div className="mdc-layout-grid__inner">
     {
       books.map(book =>

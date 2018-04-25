@@ -1,31 +1,12 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import createSagaMiddleware from 'redux-saga'
-
-import reducers from './reducers'
+import { ApolloClient } from 'apollo-client'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 
 
-const composeEnhancers =
-typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-  }) : compose;
-const sagaMiddleware = createSagaMiddleware()
-
-
-const middleware = [
-  sagaMiddleware
-]
-
-
-const configureStore = preloadedState =>
-createStore(
-  reducers,
-  preloadedState,
-  composeEnhancers(applyMiddleware(...middleware))
-)
-
+const configureApollo = (httpLink) => new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache()
+})
 
 export {
-  configureStore,
-  sagaMiddleware
+  configureApollo
 }

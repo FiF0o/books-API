@@ -3,34 +3,25 @@ import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 
-import {configureStore, sagaMiddleware} from './store'
-import {configureRootSaga} from './sagas'
-import reducers from './reducers'
+import { ApolloProvider } from 'react-apollo'
+import { HttpLink } from 'apollo-link-http'
 
-import {initWebsocket} from '../services/websockets'
+import {configureApollo} from './store'
 
 import App from './app'
 import './styles/main.css'
 
 
-// Grab the state from the global variable injected into the server-generated HTML
-const preloadedState = window.__PRELOADED_STATE__
-
-// Allow the passed state to be garbage-collected
-delete window.__PRELOADED_STATE__
-
-
-const store = configureStore(preloadedState)
-
-
-sagaMiddleware.run(configureRootSaga(store.dispatch))
+//TODO Apollo serverside rehydration
+// https://www.apollographql.com/docs/react/features/server-side-rendering.html
+const httpLink = new HttpLink({ uri: 'http://localhost:3000' })
 
 
 render(
-  <Provider store={store}>
+  <ApolloProvider client={configureApollo(httpLink)}>
     <BrowserRouter>
       <App/>
     </BrowserRouter>
-  </Provider>,
+  </ApolloProvider>,
   document.getElementById('root')
 )

@@ -2,15 +2,17 @@
 import express from 'express'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
-import { Provider } from 'react-redux'
 import cors from 'cors'
 import { StaticRouter, matchPath } from 'react-router-dom'
 import serialize from 'serialize-javascript'
 import sourceMapSupport from 'source-map-support'
 
-import {configureStore} from '../src/store'
 import App from '../src/app'
 import routes from '../src/routes'
+
+
+//TODO Apollo serverside rehydration
+// https://www.apollographql.com/docs/react/features/server-side-rendering.html
 
 
 if (process.env.NODE_ENV === "development") {
@@ -25,37 +27,24 @@ app.use(express.static('public'))
 app.use(handleRender)
 
 function handleRender(req, res, next) {
-  const currentRoute = routes.find(route => matchPath(req.url, route))
+  // const currentRoute = routes.find(route => matchPath(req.url, route))
+  // let initialState = currentRoute.component.getInitialData()
 
-  let initialState = currentRoute.component.getInitialData()
-  Promise.resolve(initialState)
-    .then(data => {
-      const context = {data}
-      // throw new Error('boom!')
+  // TODO Fetch with graphQL query - Promise & store rehydration
+  let preloadedState = {
+    books: {
+      bookList: [],
+      book: {}
+    },
+  }
 
-      /** compiles the initial state matching the shape of the state */
-      let preloadedState = {
-        books: {
-          bookList: [...data],
-          book: {}
-        },
-        // anotherReducer: anotherFetch()...
-      }
-      const store = configureStore(preloadedState)
+  const html = renderToString(
+    <StaticRouter location={req.url} context={preloadedState}>
+      <App/>
+    </StaticRouter>
+  )
+  res.send(renderFullPage(html, preloadedState))
 
-      const stateToRead = store.getState()
-
-      const html = renderToString(
-        <Provider store={store}>
-          <StaticRouter location={req.url} context={context}>
-            <App/>
-          </StaticRouter>
-        </Provider>
-      )
-      res.send(renderFullPage(html, stateToRead))
-    })
-    // sends error from server to the client view - ** SHOULD BE DEV ONLY **
-    .catch(next)
 }
 
 const renderFullPage = (tmpl, state) => `
