@@ -3,16 +3,19 @@ import express from 'express'
 import React from 'react'
 import {renderToString} from 'react-dom/server'
 import cors from 'cors'
-import { StaticRouter, matchPath } from 'react-router-dom'
+import {StaticRouter} from 'react-router-dom'
 import serialize from 'serialize-javascript'
 import sourceMapSupport from 'source-map-support'
 
+import { getDataFromTree } from 'react-apollo'
+import { ApolloProvider, renderToStringWithData } from 'react-apollo'
+import { ApolloClient } from 'apollo-client'
+import fetch from 'node-fetch'
+import { createHttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+
+
 import App from '../src/app'
-import routes from '../src/routes'
-
-
-//TODO Apollo serverside rehydration
-// https://www.apollographql.com/docs/react/features/server-side-rendering.html
 
 
 if (process.env.NODE_ENV === "development") {
@@ -27,23 +30,39 @@ app.use(express.static('public'))
 app.use(handleRender)
 
 function handleRender(req, res, next) {
-  // const currentRoute = routes.find(route => matchPath(req.url, route))
-  // let initialState = currentRoute.component.getInitialData()
 
-  // TODO Fetch with graphQL query - Promise & store rehydration
-  let preloadedState = {
-    books: {
-      bookList: [],
-      book: {}
-    },
-  }
+  const client = new ApolloClient({
+    ssrMode: true,
+    link: createHttpLink({
+      uri: 'http://localhost:3000',
+      fetch: fetch,
+      credentials: 'same-origin',
+      headers: {
+        cookie: req.header('Cookie'),
+      },
+    }),
+    cache: new InMemoryCache(),
+  });
 
-  const html = renderToString(
-    <StaticRouter location={req.url} context={preloadedState}>
-      <App/>
-    </StaticRouter>
+  const context = {}
+
+  const component = renderToString(
+    <ApolloProvider client={client}>
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    </ApolloProvider>
   )
-  res.send(renderFullPage(html, preloadedState))
+
+  getDataFromTree(component)
+    .then(() => {
+      //TODO - Load data from server side: https://www.apollographql.com/docs/react/advanced/fragments.html
+      const preloadedState = client.extract()
+      res
+        .status(200)
+        .send(renderFullPage(component, preloadedState))
+        .end()
+    })
 
 }
 

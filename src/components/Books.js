@@ -7,7 +7,7 @@ export const Books = ({books, /*addBook, getBooks}*/}) =>
     {
       books.map(book =>
         <div
-          key={book._id}
+          key={book.id}
           className="mdc-layout-grid__cell--span-6"
         >
           <div className="mdc-card mdc-card__media">

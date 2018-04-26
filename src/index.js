@@ -14,11 +14,14 @@ import './styles/main.css'
 
 //TODO Apollo serverside rehydration
 // https://www.apollographql.com/docs/react/features/server-side-rendering.html
+
+
 const httpLink = new HttpLink({ uri: 'http://localhost:3000' })
+const client = configureApollo(httpLink)
 
 
 render(
-  <ApolloProvider client={configureApollo(httpLink)}>
+  <ApolloProvider client={client}>
     <BrowserRouter>
       <App/>
     </BrowserRouter>

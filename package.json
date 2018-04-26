@@ -13,7 +13,10 @@
     "dev": "npm run bundle & NODE_ENV=development ./node_modules/.bin/nodemon server.js"
   },
   "dependencies": {
+    "apollo-cache-inmemory": "1.1.12",
+    "apollo-client": "2.2.8",
     "apollo-client-preset": "1.0.8",
+    "apollo-link-http": "1.5.4",
     "bcryptjs": "2.4.3",
     "body-parser": "1.16.0",
     "cookie-parser": "~1.4.3",
@@ -30,6 +33,7 @@
     "material-design-icons": "3.0.1",
     "mongoose": "4.8.2",
     "morgan": "1.7.0",
+    "node-fetch": "2.1.2",
     "nodemon": "1.17.1",
     "path": "0.12.7",
     "prisma": "1.6.3",

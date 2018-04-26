@@ -1,22 +1,36 @@
 import React from 'react'
-import 'isomorphic-fetch'
-import { connect } from 'react-redux'
+import { graphql } from 'react-apollo'
+import gql from 'graphql-tag'
 
 import {getBooks, postBook} from '../actions/books'
 
 import {Books} from '../components/Books'
+
+const BOOK_QUERY = gql`
+  query bookQuery {
+    getBooks {
+      books {
+        id
+        author
+        title
+        bookType
+        # genre
+        description
+        linkImg
+        linkBuy
+        favorite
+        # postedBy {}
+      }
+    }
+  }
+`
+
 
 class BooksContainer extends React.Component {
   constructor(props) {
     super(props)
     this._handleSubmit = this._handleSubmit.bind(this)
   }
-  // static getInitialData() {
-  //   // fetched from server via route - TODO replace by a dispatched action
-  //   return fetch('http://localhost:3000/api/books')
-  //     .then(res => res.json())
-  //     .catch(err => console.error(err))
-  // }
 
   _handleSubmit(e) {
     e.preventDefault()
@@ -33,38 +47,17 @@ class BooksContainer extends React.Component {
     e.target.reset()
   }
 
-  // componentDidMount() {
-  //   if(!this.props.books) {
-  //     this.props.getBooks()
-  //   }
-  // }
-
   render() {
-    // const {addBook, books, getBooks} = this.props
-    const books = [
-      {
-        _id: '1',
-        title: 'title',
-        author: 'author',
-        bookType: 'paperback',
-        genre: 'genre',
-        description: 'description',
-        linkBuy: 'https://www.waterstones.com/book/the-ashes-of-london/andrew-taylor/9780008119096',
-        linkImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Minus_font_awesome.svg/2000px-Minus_font_awesome.svg.png',
-        create_date: JSON.stringify(new Date())
-      },
-      {
-        _id: '2',
-        title: 'title',
-        author: 'author',
-        bookType: 'paperback',
-        genre: 'genre',
-        description: 'description',
-        linkBuy: 'https://www.waterstones.com/book/the-ashes-of-london/andrew-taylor/9780008119096',
-        linkImg: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Minus_font_awesome.svg/2000px-Minus_font_awesome.svg.png',
-        create_date: JSON.stringify(new Date())
-      },
-    ]
+
+    if (this.props.bookQuery && this.props.bookQuery.loading) {
+      return <div>Loading...</div>
+    }
+
+    if (this.props.bookQuery && this.props.bookQuery.error) {
+      return <div>💥 Error! 😭</div>
+    }
+
+    const books = this.props.bookQuery.getBooks.books
 
     return (
       <div className="mdc-layout-grid__inner">
@@ -123,4 +116,4 @@ class BooksContainer extends React.Component {
 }
 
 
-export default BooksContainer
+export default graphql(BOOK_QUERY, { name: 'bookQuery' })(BooksContainer)
