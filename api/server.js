@@ -17,7 +17,12 @@ setupMiddleware(app)
 // TODO - To remove. Comment as we are switching to graphql
 // connect()
 /** Allow api request from client */
-app.use(cors({origin: `http://localhost:${process.env.APP_PORT || 3001}`}))
+app.use(
+  cors({
+    origin: `http://localhost:${process.env.APP_PORT || 3001}`,
+    credentials: true
+  })
+)
 
 
 /** Mount routers to the app */
