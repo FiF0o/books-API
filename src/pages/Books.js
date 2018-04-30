@@ -4,6 +4,7 @@ import gql from 'graphql-tag'
 
 import CreateBooks from '../components/CreateBooks'
 import {Books} from '../components/Books'
+import {Login} from '../components/Login'
 
 
 const BOOK_QUERY = gql`
@@ -42,6 +43,8 @@ class BooksContainer extends React.Component {
 
     return (
       <div className="mdc-layout-grid__inner">
+
+        <Login />
 
         <div className="mdc-layout-grid__cell--span-12">
           <h1 className="mdc-typography--display1">Books</h1>
