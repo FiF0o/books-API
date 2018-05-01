@@ -10,7 +10,7 @@ class CreateBooks extends Component {
     // genre: '',
     bookType: '',
     description: '',
-    linkBuy: '',
+    linkUrl: '',
     linkImg: '',
     favorite: false
   }
