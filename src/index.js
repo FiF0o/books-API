@@ -20,10 +20,10 @@ const client = configureApollo()
 
 
 render(
-  <ApolloProvider client={client}>
-    <BrowserRouter>
+  <BrowserRouter>
+    <ApolloProvider client={client}>
       <App/>
-    </BrowserRouter>
-  </ApolloProvider>,
+    </ApolloProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 )

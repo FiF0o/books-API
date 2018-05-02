@@ -6,7 +6,7 @@ const routes = [
   //   path: "/someroute",
   //   exact: true,
   //   name: "",
-  //   component: () => <div>Route</div>
+  //   component:
   // },
   {
     path: "/",
