@@ -1,6 +1,8 @@
 import React from 'react'
-import { Mutation } from "react-apollo"
-import gql from "graphql-tag"
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
+
+import { AUTH_TOKEN } from '../constants'
 
 
 const LOGIN_QUERY = gql`
@@ -16,67 +18,96 @@ const LOGIN_QUERY = gql`
   }
 `;
 
-export const Login = () => (
-  <Mutation mutation={LOGIN_QUERY} fetchPolicy="network-only">
-    {
-      (loginPost, {loading, error, data}) => {
-       
-        if (loading) {
-          return <p>Logging in...</p>;
-        }
 
-        if (error) {
-          return <p>Failed login! 😭</p>
-        }
-        if (data) {
-          const {login} = data
-          window.localStorage.setItem('token', login.token)
-          return (
-            <span>
-              <p>
-                Welcome <em>{login.user.name}</em> - <i>({login.user.email}).</i>
-                <br/>
-                <button
-                  onClick={() => {
-                    console.log('logout')
-                    // call your auth logout code then reset store
-                    // App.logout().then(() => client.resetStore());
-                  }}
-                >
-                  Log out
-                </button>
-              </p>
-            </span>
-          );
-        }
-        return (
-          <form
-            onSubmit={e => {
-              //TODO Remove hardcoded values for text inputs 😭
-              const email = e.target['email']
-              const password = e.target['password']
-              e.preventDefault()
-              loginPost({variables: {email: email.value, password: password.value}})
-              e.target.reset()
-            }}
-          >
-            <input
-              name='email'
-              ref={node => {
-                let input = node
-              }}
-            />
-            <input
-              name='password'
-              type='password'
-              ref={node => {
-                let input = node
-              }}
-            />
-            <button type='submit'>Login</button>
-          </form>
-        )
-      }
+// stateless: https://www.apollographql.com/docs/react/essentials/mutations.html
+class Login extends React.Component {
+  state = {
+    login: true, // switch between Login and SignUp
+    email: '',
+    password: '',
+    name: '',
+    userInfo: null,
+    // loading
+    // error
+  }
+  // persist login data when switching between pages/navigating
+
+  _confirm = async () => {
+    const {email, password} = this.state
+    if(this.state.login) {
+      const result = await this.props.loginPost({
+        variables: {email, password}
+      })
+      const {token} = result.data.login
+      const {user: userInfo} = result.data.login
+      this._saveUserData(token)
+      this.setState({userInfo})
+    } else {
+      // TODO sign up mutation
+      return
     }
-  </Mutation>
-);
+    // this.props.history.push('/')
+  }
+
+  _saveUserData = token =>
+    window.localStorage.setItem(AUTH_TOKEN, token);
+
+  _logOut() {
+    window.localStorage.removeItem(AUTH_TOKEN)
+    // detroy/invalidate token on the server if stored
+    this.props.history.push(`/`)
+  }
+
+  render() {
+    // loading state
+
+    // error state
+
+    const {userInfo} = this.state
+
+    return (
+      <section>
+        {
+          userInfo ?
+          <div>
+            Welcome, {userInfo.name}<br/><i>{userInfo.email}</i>
+            <br/>
+            <button onClick={() => this._logOut()}>logout</button>
+          </div>
+          :
+          <form
+          onSubmit={e => {
+            e.preventDefault()
+            this._confirm()
+            e.target.reset()
+          }}
+        >
+          <input
+            name='email'
+            type='text'
+            placeholder='Enter your username/email'
+            onChange={e => {
+              this.setState({email: e.target.value})
+            }}
+          />
+          <input
+            name='password'
+            type='password'
+            placeholder='Enter your password'
+            onChange={node => {
+              this.setState({password: node.target.value})
+            }}
+          />
+          <button type='submit'>Login</button>
+        </form>
+        }
+      </section>
+    )
+  }
+};
+
+
+export default compose(
+  graphql(LOGIN_QUERY, {name: 'loginPost'})
+  // signup mutation
+)(Login)

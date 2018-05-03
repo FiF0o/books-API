@@ -6,16 +6,20 @@ import { withRouter } from 'react-router'
 class Header extends Component {
   render() {
     return (
-      <div>
-        <div>
-          <Link to="/" >
-            home
-          </Link>
-          <Link to="/someroute">
-            someroute
-          </Link>
-        </div>
-      </div>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/" >
+              home
+            </Link>
+          </li>
+          <li>
+            <Link to="/login">
+              login {/*| signup*/}
+            </Link>
+          </li>
+        </ul>
+      </nav>
     )
   }
 }

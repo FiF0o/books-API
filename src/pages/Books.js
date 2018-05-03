@@ -4,7 +4,8 @@ import gql from 'graphql-tag'
 
 import CreateBooks from '../components/CreateBooks'
 import {Books} from '../components/Books'
-import {Login} from '../components/Login'
+
+import {AUTH_TOKEN} from '../constants'
 
 
 const BOOK_QUERY = gql`
@@ -40,31 +41,31 @@ class BooksContainer extends React.Component {
     }
 
     const books = this.props.bookQuery.getBooks.books
+    const authToken = window.localStorage.getItem(AUTH_TOKEN)
 
     return (
-      <div className="mdc-layout-grid__inner">
+      authToken ?
+        <div className="mdc-layout-grid__inner">
 
-        <Login />
+          <div className="mdc-layout-grid__cell--span-12">
+            <h1 className="mdc-typography--display1">Books</h1>
+            <h2 className="mdc-typography--headline">Add your book</h2>
+          </div>
 
-        <div className="mdc-layout-grid__cell--span-12">
-          <h1 className="mdc-typography--display1">Books</h1>
-          <h2 className="mdc-typography--headline">Add your book</h2>
-        </div>
+          <div className="mdc-layout-grid__cell--span-12">
+            <CreateBooks/>
+          </div>
 
-        <div className="mdc-layout-grid__cell--span-12">
-          <CreateBooks/>
-        </div>
+          <div className=" mdc-layout-grid__cell--span-12" >
+            <h2 className="mdc-typography--headline">List of books</h2>
+          </div>
 
-        <div className=" mdc-layout-grid__cell--span-12" >
-          <h2 className="mdc-typography--headline">List of books</h2>
-        </div>
-
-        <div className="mdc-layout-grid__cell--span-12">
-          <Books
-            books={books}
-          />
-        </div>
-      </div>
+          <div className="mdc-layout-grid__cell--span-12">
+            <Books
+              books={books}
+            />
+          </div>
+        </div> : <p>Please login</p>
     )
   }
 }
