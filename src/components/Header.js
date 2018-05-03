@@ -15,7 +15,7 @@ class Header extends Component {
           </li>
           <li>
             <Link to="/login">
-              login {/*| signup*/}
+              login | signup
             </Link>
           </li>
         </ul>

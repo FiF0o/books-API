@@ -18,6 +18,19 @@ const LOGIN_QUERY = gql`
   }
 `;
 
+const SIGNUP_QUERY = gql`
+  mutation signupPost($email: String!, $password: String!, $name: String!) {
+    signup(email: $email, password: $password, name: $name) {
+      user {
+        id
+        name
+        email
+      }
+      token
+    }
+  }
+`;
+
 
 // stateless: https://www.apollographql.com/docs/react/essentials/mutations.html
 class Login extends React.Component {
@@ -33,7 +46,7 @@ class Login extends React.Component {
   // persist login data when switching between pages/navigating
 
   _confirm = async () => {
-    const {email, password} = this.state
+    const {email, password, name} = this.state
     if(this.state.login) {
       const result = await this.props.loginPost({
         variables: {email, password}
@@ -43,8 +56,13 @@ class Login extends React.Component {
       this._saveUserData(token)
       this.setState({userInfo})
     } else {
-      // TODO sign up mutation
-      return
+        const result = await this.props.signupPost({
+          variables: {email, password, name}
+        })
+        const {token} = result.data.signup
+        const {user: userInfo} = result.data.signup
+        this._saveUserData(token)
+        this.setState({userInfo})
     }
     // this.props.history.push('/')
   }
@@ -63,10 +81,15 @@ class Login extends React.Component {
 
     // error state
 
-    const {userInfo} = this.state
+    const {userInfo, login: isLogged} = this.state
 
     return (
       <section>
+        <div>
+          <a onClick={() => this.setState({login: !isLogged})}>
+            {isLogged ? 'need to create an account?' : 'already have an account?'}
+          </a>
+        </div>
         {
           userInfo ?
           <div>
@@ -82,6 +105,14 @@ class Login extends React.Component {
             e.target.reset()
           }}
         >
+          {!isLogged && (
+            <input
+              value={this.state.name}
+              onChange={e => this.setState({ name: e.target.value })}
+              type="text"
+              placeholder="Your name"
+            />
+          )}
           <input
             name='email'
             type='text'
@@ -98,7 +129,7 @@ class Login extends React.Component {
               this.setState({password: node.target.value})
             }}
           />
-          <button type='submit'>Login</button>
+          <button type='submit'>{isLogged ? 'login' : 'create account'}</button>
         </form>
         }
       </section>
@@ -108,6 +139,6 @@ class Login extends React.Component {
 
 
 export default compose(
-  graphql(LOGIN_QUERY, {name: 'loginPost'})
-  // signup mutation
+  graphql(LOGIN_QUERY, {name: 'loginPost'}),
+  graphql(SIGNUP_QUERY, {name: 'signupPost'})
 )(Login)
