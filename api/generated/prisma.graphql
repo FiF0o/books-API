@@ -163,6 +163,10 @@ input BookSubscriptionWhereInput {
   """
   OR: [BookSubscriptionWhereInput!]
   """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [BookSubscriptionWhereInput!]
+  """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
@@ -233,6 +237,10 @@ input BookWhereInput {
   Logical OR on all given filters.
   """
   OR: [BookWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [BookWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -688,6 +696,10 @@ input GenreSubscriptionWhereInput {
   """
   OR: [GenreSubscriptionWhereInput!]
   """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [GenreSubscriptionWhereInput!]
+  """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
@@ -737,6 +749,10 @@ input GenreWhereInput {
   Logical OR on all given filters.
   """
   OR: [GenreWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [GenreWhereInput!]
   id: ID
   """
   All values that are not equal to given value.
@@ -1025,6 +1041,10 @@ input UserSubscriptionWhereInput {
   """
   OR: [UserSubscriptionWhereInput!]
   """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [UserSubscriptionWhereInput!]
+  """
   The subscription event gets dispatched when it's listed in mutation_in
   """
   mutation_in: [MutationType!]
@@ -1079,6 +1099,10 @@ input UserWhereInput {
   Logical OR on all given filters.
   """
   OR: [UserWhereInput!]
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [UserWhereInput!]
   id: ID
   """
   All values that are not equal to given value.

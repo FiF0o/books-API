@@ -14,7 +14,7 @@ type Query {
 # MUTATIONS #
 #############
 type Mutation {
-  postBook(author: String!, title: String!, description: String!, favorite: Boolean!): Book!
+  postBook(author: String!, title: String!, description: String!, favorite: Boolean!, bookType: String, linkImg: String, linkBuy: String): Book!
   signup(email: String!, password: String!, name: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
 }

@@ -10,7 +10,7 @@ class CreateBooks extends Component {
     // genre: '',
     bookType: '',
     description: '',
-    linkUrl: '',
+    linkBuy: '',
     linkImg: '',
     favorite: false
   }
@@ -90,30 +90,33 @@ class CreateBooks extends Component {
   }
 
   _createBooks = async () => {
-    const {title, author, genre, description, bookType, linkImg, linkUrl, favorite} = this.state
+    const {title, author, genre, description, bookType, linkImg, linkBuy, favorite} = this.state
     await this.props.postMutation({
       variables: {
         title,
         author,
-        genre,
+        // genre,
         description,
-        bookType,
+        favorite,
         linkImg,
-        linkUrl,
-        favorite
+        linkBuy,
+        bookType
       }
     })
   }
 }
 
 const POST_MUTATION = gql`
-  mutation PostMutation($title: String!, $author: String!, $description: String!, $favorite: Boolean!) {
-    postBook(title: $title, author: $author, description: $description, favorite: $favorite) {
+  mutation PostMutation($title: String!, $author: String!, $description: String!, $favorite: Boolean!, $linkImg: String, $linkBuy: String, $bookType: String) {
+    postBook(title: $title, author: $author, description: $description, favorite: $favorite, linkImg: $linkImg, linkBuy: $linkBuy, bookType: $bookType) {
       id
       title
       author
       description
       favorite
+      linkImg
+      linkBuy
+      bookType
     }
   }
 `

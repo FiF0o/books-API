@@ -11,6 +11,9 @@ function postBook (root, args, context, info) {
       title: args.title,
       description: args.description,
       favorite: args.favorite,
+      bookType: args.bookType,
+      linkBuy: args.linkBuy,
+      linkImg: args.linkImg,
       postedBy: { connect: {id: userId }}
     }
   }, info)
