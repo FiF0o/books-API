@@ -1,7 +1,6 @@
 // https://github.com/graphcool/graphql-yoga
 import { GraphQLServer } from 'graphql-yoga'
 import { Prisma } from 'prisma-binding'
-import { printSchema } from 'graphql'
 
 import config from '../config'
 
