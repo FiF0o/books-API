@@ -4,13 +4,11 @@
   "private": true,
   "scripts": {
     "api": "nodemon ./api/index.js --exec babel-node",
-    "db:service": "mongod --rest --httpinterface ",
-    "db:interface": "open http://localhost:28017/",
-    "db": "npm run db:service && db:interface",
     "bundle": "NODE_ENV=development ./node_modules/.bin/webpack -w",
+    "build": "NODE_ENV=production ./node_modules/.bin/webpack",
     "server": "NODE_ENV=development node server.js",
-    "start": "npm run bundle & npm run server",
-    "dev": "npm run bundle & NODE_ENV=development ./node_modules/.bin/nodemon server.js"
+    "start": "npm run build && npm run server & npm run api",
+    "dev": "npm run bundle & npm run api & NODE_ENV=development & ./node_modules/.bin/nodemon server.js"
   },
   "dependencies": {
     "apollo-cache-inmemory": "1.1.12",
