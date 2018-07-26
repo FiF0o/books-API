@@ -23,7 +23,7 @@ const configureApollo = () => new ApolloClient({
   link: concat(authMiddleware, httpLink),
   cache: new InMemoryCache()
 })
-
+ 
 export {
   configureApollo
 }
