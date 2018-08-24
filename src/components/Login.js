@@ -86,24 +86,37 @@ class Login extends React.Component {
     return (
       <section>
         <div>
-          <a onClick={() => this.setState({login: !isLogged})}>
+          <button
+            onClick={() => this.setState({login: !isLogged})}
+            className='mdc-button'
+          >
             {isLogged ? 'need to create an account?' : 'already have an account?'}
-          </a>
+          </button>
         </div>
         {
           userInfo ?
           <div>
-            Welcome, {userInfo.name}<br/><i>{userInfo.email}</i>
+            <h3
+              className='mdc-typography--caption'
+            >
+              Welcome, {userInfo.name}<br/><i>{userInfo.email}</i>
+            </h3>
             <br/>
-            <button onClick={() => this._logOut()}>logout</button>
+            <button
+              onClick={() => this._logOut()}
+              className='mdc-button mdc-button--raised mdc-button--dense'
+            >
+              logout
+            </button>
           </div>
           :
           <form
-          onSubmit={e => {
-            e.preventDefault()
-            this._confirm()
-            e.target.reset()
-          }}
+            onSubmit={e => {
+              e.preventDefault()
+              this._confirm()
+              e.target.reset()
+            }}
+            className=''
         >
           {!isLogged && (
             <input
@@ -111,6 +124,7 @@ class Login extends React.Component {
               onChange={e => this.setState({ name: e.target.value })}
               type="text"
               placeholder="Your name"
+              className='mdc-text-field__input'
             />
           )}
           <input
@@ -120,7 +134,9 @@ class Login extends React.Component {
             onChange={e => {
               this.setState({email: e.target.value})
             }}
+            className='mdc-text-field__input'
           />
+          <br/>
           <input
             name='password'
             type='password'
@@ -128,8 +144,17 @@ class Login extends React.Component {
             onChange={node => {
               this.setState({password: node.target.value})
             }}
+            className='mdc-text-field__input'
           />
-          <button type='submit'>{isLogged ? 'login' : 'create account'}</button>
+          <br/>
+          <br/>
+          <br/>
+          <button
+            type='submit'
+            className='mdc-button mdc-button--raised mdc-button--dense'
+          >
+            {isLogged ? 'login' : 'create account'}
+          </button>
         </form>
         }
       </section>

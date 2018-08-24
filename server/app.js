@@ -73,7 +73,7 @@ const renderFullPage = (tmpl, state) => `
         <link rel='stylesheet' href='/main.css'>
         <script src='/bundle.js' defer></script>
       </head>
-      <body>
+      <body class='mdc-typography'>
         <!-- append compiled React app-->
         <div id='root'>${tmpl}</div>
         <script>
